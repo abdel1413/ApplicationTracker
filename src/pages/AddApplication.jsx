@@ -1,4 +1,4 @@
-export const tAddApplication = ()=>{
+export const AddApplication = ()=>{
     return (<>
     add application </>)
 }
