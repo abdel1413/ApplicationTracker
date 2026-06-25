@@ -3,12 +3,22 @@ import { Link } from "react-router-dom"
 export const Navbar =()=>{
     return(<>
    
-       <nav>
-        <Link to="/" >Dashboard</Link>
-        <Link to="/AddApplication"> Add </Link>
-        <Link to="/Applications">Applications</Link>
-        <Link to="/EditApplication">Edit</Link>
-        <Link to="/NotFound">Not Found</Link>
+       <nav className="border border-2 p-4 text-lg flex gap-6 items-center ">
+        <Link to="/" 
+        className="hover:text-blue-500">
+        Dashboard
+        </Link>
+
+        <Link to="/Add"
+        className="hover:text-blue-500">
+         Add 
+         </Link>
+
+        <Link to="/Applications"
+         className="hover:text-blue-500">
+        Applications
+        </Link>
+      
         
        </nav>
     </>)

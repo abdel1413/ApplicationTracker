@@ -9,18 +9,30 @@ import { EditApplication } from './pages/EditApplication'
 import { Navbar } from './components/layout/Navbar'
 import { AddApplication } from './pages/AddApplication'
 import { Applications } from './pages/Applications'
+import { NotFound } from './pages/NotFound'
+
+
 
 function App() {
-
+ 
   return (
     <>
       
       <Navbar />
     <Routes>
-      <Route path="/" element={<Dashboard/>}/>
-      < Route  path="/AddApplication" element={<AddApplication/>}/>
-      <Route path='/Applications' element={<Applications/>} />
-      <Route  path='/EditApplication' element={<EditApplication/>}/>
+      <Route path="/" 
+      element={<Dashboard/>}/>
+
+      < Route  path="/Add" 
+      element={<AddApplication/>}/>
+
+      <Route path='/Applications'
+       element={<Applications/>} />
+      <Route  path='/edit/:id' element={<EditApplication/>}/>
+      <Route path='*' 
+      element={<NotFound />}
+      
+      />
     </Routes>
     
      

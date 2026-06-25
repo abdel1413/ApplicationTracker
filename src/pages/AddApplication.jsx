@@ -1,4 +1,6 @@
+import { ApplicationForm } from "../components/application/ApplicationForm"
 export const AddApplication = ()=>{
-    return (<>
-    add application </>)
+    
+ return   <ApplicationForm />
+
 }
