@@ -17,7 +17,8 @@ export const ApplicationForm = ({onSubmit})=>{
        createdAt: new Date().toISOString()
     }
 
- console.log(newApplication)
+      //pass new app to prop 
+      
      onSubmit(newApplication)
      setFormData(initialState)
 
@@ -73,9 +74,9 @@ export const ApplicationForm = ({onSubmit})=>{
         </div>
         <div>
             <label className="block mb-2">Status:</label>
-            <select name="status" 
+            <select
+             name="status" 
             id="" 
-            name='status'
             value={formData.status}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded"
