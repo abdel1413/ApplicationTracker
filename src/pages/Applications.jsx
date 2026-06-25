@@ -5,6 +5,7 @@
 // loop thru them and display each application on the screen.
 
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 
 export const Applications =()=>{    
@@ -42,10 +43,17 @@ export const Applications =()=>{
                 <p>{app.dateApplied}</p>
                 <span>{app.status}</span>
                 </div>
+                 <div className="flex gap-2" >
+                    <Link to="/edi/${app.id}
+                    "
+                    className="bg-blue-500 text-white px-3 py-1 rounded">
+                        Edit</Link>
+
                 <button className="bg-red-500  text-white rounded px-3 py-1"
                 onClick={()=>handleDelete(app.id)}>
                     Delete
                 </button>
+                 </div>
              </div>
             })}
           </div>
