@@ -24,15 +24,14 @@ export const  EditApplication =()=>{
     // pull all apps form storage;
     useEffect(()=>{
         const data = JSON.parse(localStorage.getItem("applications"))||[];
-        console.log('data',data)
-        console.log('id',id)
+     
         const found = data.find(app => app.id === id)
-        console.log('found',found)
+        
         if(found){
             setFormData(found)
         }
     },[id])
-    console.log('formdata',formData)
+   
 
     const handleChange =(e)=>{
         console.log(e.target.name, e.target.value)
@@ -48,10 +47,11 @@ export const  EditApplication =()=>{
     // if found go to edit page with current data otherwise existing data 
     //from storage
     // save news tate  back to storage
+    //during the update we need to preserve id so we don't loose it
     const handleSubmit = (e)=>{
         e.preventDefault();
         const data = JSON.parse(localStorage.getItem('applications'))||[];
-        const updated = data.map(app => app.id ===id? formData: app);
+        const updated = data.map(app => app.id ===id? {...formData,id}: app);
 
          localStorage.setItem('applications',JSON.stringify(updated))
          //redirect to applications
