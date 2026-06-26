@@ -44,8 +44,8 @@ export const Applications =()=>{
                 <span>{app.status}</span>
                 </div>
                  <div className="flex gap-2" >
-                    <Link to="/edi/${app.id}
-                    "
+                    <Link to={`/edit/${app.id}`}
+                    
                     className="bg-blue-500 text-white px-3 py-1 rounded">
                         Edit</Link>
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export const Navbar =()=>{
     return(<>
    
-       <nav className="border border-2 p-4 text-lg flex gap-6 items-center ">
+       <nav className="border border-2 p-4 text-lg flex gap-6 items-center justify ">
         <Link to="/" 
         className="hover:text-blue-500">
         Dashboard
@@ -18,8 +18,7 @@ export const Navbar =()=>{
          className="hover:text-blue-500">
         Applications
         </Link>
-      
-        
+       
        </nav>
     </>)
 }
