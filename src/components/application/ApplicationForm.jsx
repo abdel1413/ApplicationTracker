@@ -77,10 +77,9 @@ export const ApplicationForm = ({onSubmit})=>{
             <select
              name="status" 
             id="" 
-            value={formData.status}
+            value={formData.status.toLowerCase()}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded"
-            
             >
                 <option value="applied">Applied</option>
                 <option value="interview">Interview</option>
@@ -105,5 +104,5 @@ const initialState = {
     company: "",
     role : "",
     dateApplied: "",
-    status : "Applied"
+    status : "applied"
 }

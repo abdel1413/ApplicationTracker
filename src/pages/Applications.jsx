@@ -10,31 +10,64 @@ import { Link } from "react-router-dom"
 
 export const Applications =()=>{    
     const [applications, setApplications] = useState([])
+     const [filter, setFilter] = useState("all")
+
+   
+
+     const loadApplications= ()=>{
+
+       const data =JSON.parse(localStorage.getItem('applications'))||[]
+       setApplications(data)
+     }
 
    // get all applications once so we use useEffect()
    useEffect(()=>{
-    const data =JSON.parse(localStorage.getItem('applications'))||[]
-    
-    setApplications(data)
+    loadApplications()
    },[])
 
    //to delete filter out all the items whose id is same as the param's id
    // update the application using setApplication
    // save updated into storage
    const handleDelete =(id)=>{
-    const filtered = applications.filter(item => item.id !==id)
+    const data =JSON.parse(localStorage.getItem("applications"))||[]
+
+
+    const filtered = data.filter(item => item.id !==id)
+
     setApplications(filtered)
 
     localStorage.setItem('applications',JSON.stringify(filtered))
 
    }
 
+     // use select option to filter applications 
+  
+     const filtered = filter ==="all"
+     ? applications
+     : applications.filter(app => app.status.toLowerCase() === filter)
+
+    
+    console.log('filtered',filter)
     return (<div className="p-6">
-          <h1 className="text-2xl font-bold mb-4 text-center justify">
-            Applications
-          </h1>
+         <div  className="flex  items-center justify m-auto">
+            <h1 className="text-2xl font-bold text-center ">
+              Applications
+            </h1>
+            <div className="border border-rounded m-6">
+                <select name="applications" 
+                   value={filter}
+                   key={1}
+                   onChange={e => setFilter(e.target.value)}>
+                  <option value="all">All</option>
+                  <option value="applied">Applied</option>
+                  <option value="interview">Interview</option>
+                  <option value="offer">Offer</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+         </div>
           <div className="space-y-4">
-            {applications?.map(app =>{
+            {filtered.map(app =>{
            return   <div className="border p-4 rounded shadow flex justify-between items-center"
              key={app.id}>
                 <div>

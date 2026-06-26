@@ -87,7 +87,7 @@ export const  EditApplication =()=>{
           className="w-full border p-2"/>
           <select
           name="status"
-          value={formData.status}
+          value={formData.status.toLowerCase()}
           onChange={handleChange}
             className="w-full border p-2">
                 <option>Applied</option>

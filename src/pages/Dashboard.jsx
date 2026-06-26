@@ -8,18 +8,19 @@ export const Dashboard =()=>{
     useEffect(()=>{
 
         const data = JSON.parse(localStorage.getItem('applications'))
-        console.log(data)
+
         setApplications(data)
 
     },[])
 
-  const applied = applications.filter(app => app.status === 'Applied').length;
+    
+  const applied = applications.filter(app => app.status === 'applied').length;
 
-  const offered = applications.filter(app => app.status === 'Offer').length;
+  const offered = applications.filter(app => app.status === 'offer').length;
 
-  const rejected = applications.filter(app => app.status === 'Rejected').length;
+  const rejected = applications.filter(app => app.status === 'rejected').length;
   
-  const interview  = applications.filter(app => app.status === 'Interview').length;
+  const interview  = applications.filter(app => app.status === 'interview').length;
 
 
     return (
