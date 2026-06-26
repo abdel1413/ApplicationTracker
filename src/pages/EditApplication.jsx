@@ -60,8 +60,8 @@ export const  EditApplication =()=>{
         navigate('/applications')
 
     }
-    return (<div>
-        <h1 className="font-bold text-2xl mb-4">
+    return (<div className="p-6 max-w-xl mx-auto">
+        <h1 className="font-bold text-2xl mb-4 text-center justify mt-5">
         Edit application
 
         </h1>
@@ -80,7 +80,7 @@ export const  EditApplication =()=>{
             className="w-full border p-2"/>
             
           <input
-          
+          type="date"
           name="dateApplied"
           onChange={handleChange}
           value={formData.dateApplied}
