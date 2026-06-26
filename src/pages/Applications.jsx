@@ -11,6 +11,7 @@ import { Link } from "react-router-dom"
 export const Applications =()=>{    
     const [applications, setApplications] = useState([])
      const [filter, setFilter] = useState("all")
+     const [search, setSearch] = useState("")
 
    
 
@@ -42,12 +43,18 @@ export const Applications =()=>{
 
      // use select option to filter applications 
   
-     const filtered = filter ==="all"
-     ? applications
-     : applications.filter(app => app.status.toLowerCase() === filter)
+    //  const filtered = filter ==="all"
+    //  ? applications
+    //  : applications.filter(app => app.status.toLowerCase() === filter)
 
-    
-    console.log('filtered',filter)
+     const filtered = applications.filter(app =>{
+      const statusMatch = app.status ===filter || filter ==='all'
+      const searchMatch = app.company.toLowerCase()
+      .includes(search.toLowerCase())||app.role.toLowerCase()
+      .includes(search.toLowerCase())
+      return statusMatch && searchMatch
+     })
+  
     return (<div className="p-6">
          <div  className="flex  items-center justify m-auto">
             <h1 className="text-2xl font-bold text-center ">
@@ -65,6 +72,9 @@ export const Applications =()=>{
                   <option value="rejected">Rejected</option>
                 </select>
               </div>
+         </div>
+         <div className="mb-4 max-w-full">
+          <input className="max-w-full" type="text" name="" id=""  placeholder="Search company or role..."/>
          </div>
           <div className="space-y-4">
             {filtered.map(app =>{
