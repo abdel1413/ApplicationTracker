@@ -48,12 +48,16 @@ export const Applications =()=>{
     //  : applications.filter(app => app.status.toLowerCase() === filter)
 
      const filtered = applications.filter(app =>{
-      const statusMatch = app.status ===filter || filter ==='all'
-      const searchMatch = app.company.toLowerCase()
+      console.log('filter',filter)
+      const statusMatch = filter ==='all'||app.status ===filter
+      const searchMatch = search ===""|| app.company.toLowerCase()
       .includes(search.toLowerCase())||app.role.toLowerCase()
       .includes(search.toLowerCase())
+      console.log('status',statusMatch)
+      console.log('nm',statusMatch)
       return statusMatch && searchMatch
      })
+   
   
     return (<div className="p-6">
          <div  className="flex  items-center justify m-auto">
@@ -72,10 +76,16 @@ export const Applications =()=>{
                   <option value="rejected">Rejected</option>
                 </select>
               </div>
+              <div className="-w-full text-2xk border rounded ">
+          <input 
+           type="text" 
+           value={search}
+           onChange={e => setSearch(e.target.value)}
+            placeholder="Search company or role..."
+            className="border p-2 rounded  w-full"/>
          </div>
-         <div className="mb-4 max-w-full">
-          <input className="max-w-full" type="text" name="" id=""  placeholder="Search company or role..."/>
          </div>
+         
           <div className="space-y-4">
             {filtered.map(app =>{
            return   <div className="border p-4 rounded shadow flex justify-between items-center"
