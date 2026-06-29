@@ -21,12 +21,11 @@ export const  EditApplication =()=>{
     const {id }= useParams();
     const navigate = useNavigate();
   
-    // pull all apps form storage;
+    // pull all apps form storage based on the [id];
     useEffect(()=>{
         const data = JSON.parse(localStorage.getItem("applications"))||[];
      
         const found = data.find(app => app.id === id)
-        
         if(found){
             setFormData(found)
         }
@@ -34,7 +33,6 @@ export const  EditApplication =()=>{
    
 
     const handleChange =(e)=>{
-        console.log(e.target.name, e.target.value)
         const {name, value} = e.target;
         setFormData(prev =>({
             ...prev,
@@ -54,9 +52,8 @@ export const  EditApplication =()=>{
         const updated = data.map(app => app.id ===id? {...formData,id}: app);
 
          localStorage.setItem('applications',JSON.stringify(updated))
+       
          //redirect to applications
-         console.log("id", id)
-         console.log(navigate)
         navigate('/applications')
 
     }
@@ -90,10 +87,10 @@ export const  EditApplication =()=>{
           value={formData.status.toLowerCase()}
           onChange={handleChange}
             className="w-full border p-2">
-                <option>Applied</option>
-                <option>Interview</option>
-                <option>Offer</option>
-                <option>Rejected</option>
+                <option value ='applied'>Applied</option>
+                <option value='interview'>Interview</option>
+                <option value='offer'>Offer</option>
+                <option value='rejected'>Rejected</option>
             </select>
             <button 
             type='submit'

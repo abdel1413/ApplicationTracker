@@ -12,6 +12,7 @@ export const Applications =()=>{
     const [applications, setApplications] = useState([])
      const [filter, setFilter] = useState("all")
      const [search, setSearch] = useState("")
+     const [sortOrder, setSortOrder] = useState('latest')
 
    
 
@@ -21,7 +22,7 @@ export const Applications =()=>{
        setApplications(data)
      }
 
-   // get all applications once so we use useEffect()
+   // get all applications once so we use useEffect()and pass [] as dependency
    useEffect(()=>{
     loadApplications()
    },[])
@@ -47,24 +48,39 @@ export const Applications =()=>{
     //  ? applications
     //  : applications.filter(app => app.status.toLowerCase() === filter)
 
+    //combine  select option with search input result
+
      const filtered = applications.filter(app =>{
-      console.log('filter',filter)
-      const statusMatch = filter ==='all'||app.status ===filter
-      const searchMatch = search ===""|| app.company.toLowerCase()
-      .includes(search.toLowerCase())||app.role.toLowerCase()
-      .includes(search.toLowerCase())
-      console.log('status',statusMatch)
-      console.log('nm',statusMatch)
+      const statusMatch = filter ==='all'||app.status.toLowerCase() ===filter
+
+      const searchMatch = search ===""
+      || app.company.toLowerCase().includes(search.toLowerCase())
+      ||app.role.toLowerCase().includes(search.toLowerCase()) 
+
       return statusMatch && searchMatch
-     })
-   
+     }).sort((a,b)=> {
+      if(sortOrder === 'latest'){
+      return    new Date(b.dateApplied).getTime()
+     - new Date(a.dateApplied).getTime()
+    }
+
+    return new Date(a.dateApplied).getTime()- new Date(b.dateApplied).getTime()
+     
   
+    
+  }
+
+     
+    )
+   
+    
     return (<div className="p-6">
          <div  className="flex  items-center justify m-auto">
             <h1 className="text-2xl font-bold text-center ">
               Applications
             </h1>
-            <div className="border border-rounded m-6">
+          
+            <div className="border border-rounded mr-6 ml-2 ">
                 <select name="applications" 
                    value={filter}
                    key={1}
@@ -82,12 +98,21 @@ export const Applications =()=>{
            value={search}
            onChange={e => setSearch(e.target.value)}
             placeholder="Search company or role..."
-            className="border p-2 rounded  w-full"/>
+            className="border p-2 rounded  w-full "/>
          </div>
+         <div className="border border-rounded m-6" >
+              <select name="" id=""
+               value={sortOrder} 
+               onChange={e => setSortOrder(e.target.value)}>
+                <option value="latest">Latest</option>
+                <option value="oldest">Oldest</option>
+              </select>
+            </div>
          </div>
          
           <div className="space-y-4">
             {filtered.map(app =>{
+
            return   <div className="border p-4 rounded shadow flex justify-between items-center"
              key={app.id}>
                 <div>
