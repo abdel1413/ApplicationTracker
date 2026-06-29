@@ -62,10 +62,16 @@ export const Applications =()=>{
       if(sortOrder === 'latest'){
       return    new Date(b.dateApplied).getTime()
      - new Date(a.dateApplied).getTime()
+    }else if(sortOrder === 'oldest'){
+       return new Date(a.dateApplied).getTime()-
+     new Date(b.dateApplied).getTime()
+    } else if (sortOrder === 'az'){
+      return b.company.localeCompare(a.company)
+    }else if(sortOrder === 'za'){
+      return a.company.localeCompare(b.company)
     }
 
-    return new Date(a.dateApplied).getTime()- new Date(b.dateApplied).getTime()
-     
+   return 0
   
     
   }
@@ -104,8 +110,10 @@ export const Applications =()=>{
               <select name="" id=""
                value={sortOrder} 
                onChange={e => setSortOrder(e.target.value)}>
-                <option value="latest">Latest</option>
-                <option value="oldest">Oldest</option>
+                <option value="latest">Latest first</option>
+                <option value="oldest">Oldest first</option>
+                <option value="az"> Company A-Z</option>
+                <option value="za">Company Z-A</option>
               </select>
             </div>
          </div>
