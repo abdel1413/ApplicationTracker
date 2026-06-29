@@ -80,12 +80,15 @@ export const Applications =()=>{
     )
    
     
-    return (<div className="p-6">
-         <div  className="flex  items-center justify m-auto">
+    return (
+    <div className="p-6">
+         <div className="">
             <h1 className="text-2xl font-bold text-center ">
               Applications
             </h1>
-          
+             
+
+
             <div className="border border-rounded mr-6 ml-2 ">
                 <select name="applications" 
                    value={filter}
@@ -98,27 +101,36 @@ export const Applications =()=>{
                   <option value="rejected">Rejected</option>
                 </select>
               </div>
-              <div className="-w-full text-2xk border rounded ">
-          <input 
-           type="text" 
-           value={search}
-           onChange={e => setSearch(e.target.value)}
-            placeholder="Search company or role..."
-            className="border p-2 rounded  w-full "/>
-         </div>
-         <div className="border border-rounded m-6" >
-              <select name="" id=""
-               value={sortOrder} 
-               onChange={e => setSortOrder(e.target.value)}>
-                <option value="latest">Latest first</option>
-                <option value="oldest">Oldest first</option>
-                <option value="az"> Company A-Z</option>
-                <option value="za">Company Z-A</option>
-              </select>
-            </div>
-         </div>
-         
+              <div className="text-2xk border rounded ">
+                <input 
+                  type="text" 
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Search company or role..."
+                  className="border p-2 rounded  md: "/>
+              </div>
+              <div className="border border-rounded " >
+                <select name="" id=""
+                  value={sortOrder} 
+                  onChange={e => setSortOrder(e.target.value)}>
+                  <option value="latest">Latest first</option>
+                  <option value="oldest">Oldest first</option>
+                  <option value="az"> Company A-Z</option>
+                  <option value="za">Company Z-A</option>
+                </select>
+              </div>
+             </div>
+           
           <div className="space-y-4">
+
+            {!filtered.length &&(<div className="text-center py-10 bg-gray-50 border rounded">
+              <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
+              <p className="text-gray-500  ">
+                try changing your search or filter
+              </p>
+
+              </div>)}
+
             {filtered.map(app =>{
 
            return   <div className="border p-4 rounded shadow flex justify-between items-center"
