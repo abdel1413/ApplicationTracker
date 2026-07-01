@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import {FaCalendarAlt,FaBriefcase} from "react-icons/fa"
 
 
 export const Applications =()=>{    
@@ -138,8 +139,8 @@ export const Applications =()=>{
              key={app.id}>
                 <div  >
                   <h2 className="font-bold ">{app.company}</h2>
-                  <p>{app.role}</p>
-                  <p>{app.dateApplied}</p>
+                  <p className="flex items-center gap-2"><FaBriefcase />{app.role}</p>
+                  <p className="flex items-center gap-2"><FaCalendarAlt /> {app.dateApplied}</p>
                   <span
                   className={`px-3 py-1 rounded-full text-sm font-medium m-1 ${
                     app.status ==="applied"
