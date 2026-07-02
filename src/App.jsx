@@ -28,7 +28,10 @@ function App() {
 
       <Route path='/Applications'
        element={<Applications/>} />
-      <Route  path='/edit/:id' element={<EditApplication/>}/>
+
+      <Route  path='/edit/:id'
+       element={<EditApplication/>}/>
+       
       <Route path='*' 
       element={<NotFound />}
       

@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 export const Navbar =()=>{
+
+
     return(<>
    
 
+ 
 
     <nav className="border-b h-16 text-lg flex  items-center justify-between bg-white  px-8">
        
@@ -11,21 +14,24 @@ export const Navbar =()=>{
         JobTracker
         </h1>
         <div  className="flex gap-8 font-medium">
-            <Link to="/" 
-            className="hover:text-blue-500">
+            <NavLink to="/"  end
+            className={activeNavLink}>
             Dashboard
-            </Link>
+            </NavLink>
 
-            <Link to="/Add"
-            className="hover:text-blue-500">
+            <NavLink to="/Add"
+            className={activeNavLink}>
             Add 
-            </Link>
+            </NavLink>
 
-            <Link to="/Applications"
-            className="hover:text-blue-500">
+            <NavLink to="/Applications"
+            className={activeNavLink}>
             Applications
-            </Link>
+            </NavLink>
        </div>
      </nav>
     </>)
 }
+
+
+const activeNavLink = ({isActive}) => isActive ? "text-blue-500  border-b-2 border-blue-500 pb-1" : "text-gray-700 hover:text-blue-500 pb-1 transition-colors duration-200"

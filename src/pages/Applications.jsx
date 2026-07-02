@@ -53,9 +53,10 @@ export const Applications =()=>{
     //combine  select option with search input result
 
      const filtered = applications.filter(app =>{
-      const statusMatch = filter ==='all'||app.status.toLowerCase() ===filter
+      
+      const statusMatch = filter ==='all'||app.status.toLowerCase() === filter
 
-      const searchMatch = search ===""
+      const searchMatch = search === ""
       || app.company.toLowerCase().includes(search.toLowerCase())
       ||app.role.toLowerCase().includes(search.toLowerCase()) 
 
@@ -83,7 +84,7 @@ export const Applications =()=>{
    
     
     return (
-    <div className="p-6">
+    <div className=" flex flex-col justify-between justify-content items-center p-6">
        <h1 className="text-2xl font-bold text-center ">
               Applications <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
                 {filtered.length}
@@ -111,7 +112,7 @@ export const Applications =()=>{
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Search company or role..."
-                  className="border rounded   px-3 w-96  h-10 "/>
+                  className="border rounded   px-3 w-96 lg:w-[500px] h-10 "/>
               </div>
               <div  >
                 <select name="" id=""
@@ -126,7 +127,7 @@ export const Applications =()=>{
               </div>
              </div>
            
-          <div className="max-w-6xl mx:auto px-6 m-5 ">
+          <div className="w-full mx:auto px-6 m-5  ">
 
             {!filtered.length &&(<div className="text-center py-10 bg-gray-50 border rounded">
               <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
@@ -138,35 +139,35 @@ export const Applications =()=>{
 
             {filtered.map(app =>{
 
-           return  < div className="border p-4 rounded shadow flex justify-between  items-center m-5 space-y-2 "
+           return  < div className="max-w-5xl mx-auto border border-gray-200 p-4 rounded-large shadow-sm flex justify-between  items-center m-5 space-y-2 hover:shadow-lg transition-shadow duration-300 hover: -translate-y-1 scale-105 transition-all duration-300"
              key={app.id}>
-                <div  >
-                  <h2 className="font-bold text-lg space-y-2 mb-2">{app.company}</h2>
-                  <p className="flex items-center gap-2 space-y-2 mb-2"><FaBriefcase />{app.role}</p>
+                <div   >
+                  <h2 className=" text-xl font-bold space-y-2 mb-2">{app.company}</h2>
+                  <p className="flex items-center gap-2 space-y-2 mb-2 text-gray-600"><FaBriefcase />{app.role}</p>
 
-                  <p className="flex items-center space-y-2 mb-2"><FaCalendarAlt /> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
+                  <p className="flex items-center space-y-2 mb-2 text-gray-600"><FaCalendarAlt /> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
                   <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium mr-2 space-y-2 text-xl mb-2 ${
+                  className={`px-3 py-0 rounded-full text-sm font-medium mr-2 space-y-2 text-xl  mb-2 ${
                     app.status ==="applied"
                     ? "bg-blue-300 text-white-500 mb-2"
                     : app.status ==="offer"
                     ?"bg-green-300 text-wite-500 mb-2"
                     : app.status ==="interview"
                     ? "bg-yellow-300 text-white500 mb-2"
-                    : "bg-red-300 text-white-500 mb-2"
-                  } `}>{app.status}</span>
+                    : "bg-red-400 text-white-500 mb-2"
+                  } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}</span>
                   {/* <span className="text-xl space-y-2">{app.status}</span> */}
-                </div>
-                 <div className="flex gap-3" >
+                   </div>
+                   <div className="flex gap-3" >
                     <Link to={`/edit/${app.id}`}
                     
-                     className="bg-blue-500 text-white px-4 py-2 rounded">
+                     className="bg-blue-500 text-white text-sm px-4 py-1 rounded-lg hover:bg-blue-600 transition-colors duration-200">
                         Edit</Link>
 
-                    <button className="bg-red-500  text-white rounded px-4 py-2"
+                     <button className="bg-red-500  text-white text-sm rounded-lg px-4 py-1 hover:bg-red-600 transition-colors duration-200"
                       onClick={()=>handleDelete(app.id)}>
                        Delete
-                </button>
+                     </button>
                  </div>
              </div>
             })}
