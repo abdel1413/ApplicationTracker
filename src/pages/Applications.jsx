@@ -84,14 +84,14 @@ export const Applications =()=>{
    
     
     return (
-    <div className=" flex flex-col justify-between justify-content items-center p-6">
+    <div className=" flex flex-col justify-between justify-content items-center p-6 mt-16">
        <h1 className="text-2xl font-bold text-center ">
               Applications <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
                 {filtered.length}
               </span>
             </h1>
              
-        <div className="flex  items-center justify-center gap-4 my-8 mb-8">
+        <div className="flex  items-center justify-center gap-4 my-8 mb-4">
             <div >
                 <select name="applications" 
                 
@@ -125,7 +125,7 @@ export const Applications =()=>{
                   <option value="za">Company Z-A</option>
                 </select>
               </div>
-             </div>
+           </div>
            
           <div className="w-full mx:auto px-6 m-5  ">
 

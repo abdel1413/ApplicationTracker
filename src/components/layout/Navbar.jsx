@@ -8,7 +8,7 @@ export const Navbar =()=>{
 
  
 
-    <nav className="border-b h-16 text-lg flex  items-center justify-between bg-white  px-8">
+    <nav className=" fixed top-0 left-0 w-full mb-9 border-b h-16 text-lg flex  items-center justify-between bg-white  px-8">
        
          <h1 className="text-xl font-bold text-blue-600">
         JobTracker
