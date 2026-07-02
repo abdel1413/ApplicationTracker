@@ -7,6 +7,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import {FaCalendarAlt,FaBriefcase} from "react-icons/fa"
+import dayjs from "dayjs"
 
 
 export const Applications =()=>{    
@@ -84,7 +85,9 @@ export const Applications =()=>{
     return (
     <div className="p-6">
        <h1 className="text-2xl font-bold text-center ">
-              Applications
+              Applications <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
+                {filtered.length}
+              </span>
             </h1>
              
         <div className="flex  items-center justify-center gap-4 my-8 mb-8">
@@ -108,7 +111,7 @@ export const Applications =()=>{
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Search company or role..."
-                  className="border rounded   px-3 w-80  h-10 "/>
+                  className="border rounded   px-3 w-96  h-10 "/>
               </div>
               <div  >
                 <select name="" id=""
@@ -135,33 +138,34 @@ export const Applications =()=>{
 
             {filtered.map(app =>{
 
-           return  < div className="border p-4 rounded shadow flex justify-between  items-center m-5 "
+           return  < div className="border p-4 rounded shadow flex justify-between  items-center m-5 space-y-2 "
              key={app.id}>
                 <div  >
-                  <h2 className="font-bold ">{app.company}</h2>
-                  <p className="flex items-center gap-2"><FaBriefcase />{app.role}</p>
-                  <p className="flex items-center gap-2"><FaCalendarAlt /> {app.dateApplied}</p>
+                  <h2 className="font-bold text-lg space-y-2 mb-2">{app.company}</h2>
+                  <p className="flex items-center gap-2 space-y-2 mb-2"><FaBriefcase />{app.role}</p>
+
+                  <p className="flex items-center space-y-2 mb-2"><FaCalendarAlt /> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
                   <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium m-1 ${
+                  className={`px-3 py-1 rounded-full text-sm font-medium mr-2 space-y-2 text-xl mb-2 ${
                     app.status ==="applied"
-                    ? "bg-blue-400 text-blue-500"
+                    ? "bg-blue-300 text-white-500 mb-2"
                     : app.status ==="offer"
-                    ?"bg-green-400 text-green-500"
+                    ?"bg-green-300 text-wite-500 mb-2"
                     : app.status ==="interview"
-                    ? "bg-yellow-400 text-yellow-500"
-                    : "bg-red-500 text-red-500"
-                  } `}></span>
-                  <span className="text-xl">{app.status}</span>
+                    ? "bg-yellow-300 text-white500 mb-2"
+                    : "bg-red-300 text-white-500 mb-2"
+                  } `}>{app.status}</span>
+                  {/* <span className="text-xl space-y-2">{app.status}</span> */}
                 </div>
-                 <div className="flex gap-2" >
+                 <div className="flex gap-3" >
                     <Link to={`/edit/${app.id}`}
                     
-                    className="bg-blue-500 text-white px-4 py-2 rounded">
+                     className="bg-blue-500 text-white px-4 py-2 rounded">
                         Edit</Link>
 
-                <button className="bg-red-500  text-white rounded px-4 py-2"
-                onClick={()=>handleDelete(app.id)}>
-                    Delete
+                    <button className="bg-red-500  text-white rounded px-4 py-2"
+                      onClick={()=>handleDelete(app.id)}>
+                       Delete
                 </button>
                  </div>
              </div>
