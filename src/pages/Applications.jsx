@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import {FaCalendarAlt,FaBriefcase} from "react-icons/fa"
+import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt} from "react-icons/fa"
 import dayjs from "dayjs"
 
 
@@ -21,6 +21,7 @@ export const Applications =()=>{
      const loadApplications= ()=>{
 
        const data =JSON.parse(localStorage.getItem('applications'))||[]
+       console.log(data)  
        setApplications(data)
      }
 
@@ -142,7 +143,16 @@ export const Applications =()=>{
            return  < div className="max-w-5xl mx-auto border border-gray-200 p-4 rounded-large shadow-sm flex justify-between  items-center m-5 space-y-2 hover:shadow-lg transition-shadow duration-300 hover: -translate-y-1 scale-105 transition-all duration-300"
              key={app.id}>
                 <div   >
-                  <h2 className=" text-xl font-bold space-y-2 mb-2">{app.company}</h2>
+                  <h2 className=" text-xl font-bold space-y-2 mb-2">
+                    {app.companyUrl? (
+                      <a href={app.companyUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer">
+                        {app.company}
+                        <FaExternalLinkAlt className="inline-block ml-1 text-sm text-gray-400" />
+                      </a>
+                    ) : (
+                      <span className="font-semibold">{app.company}</span>
+                    )}
+                  </h2>
                   <p className="flex items-center gap-2 space-y-2 mb-2 text-gray-600"><FaBriefcase />{app.role}</p>
 
                   <p className="flex items-center space-y-2 mb-2 text-gray-600"><FaCalendarAlt /> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
@@ -172,6 +182,7 @@ export const Applications =()=>{
              </div>
             })}
           </div>
+           
            
    {} </div>)
 }

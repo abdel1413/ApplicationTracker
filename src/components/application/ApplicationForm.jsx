@@ -36,7 +36,7 @@ export const ApplicationForm = ({onSubmit})=>{
 
 
     return (<>
-    <form className="max-w-xl mx-auto bg-white shadow shadow-lg shadow-md shadow-sm  p-6 space-y-5 mt-16 "
+    <form className="max-w-xl mx-auto bg-white shadow shadow-lg   p-6 space-y-5 mt-20 bg-gray-100  "
     onSubmit={handleSubmit}>
         <div>
             <h2 className="text-xl font-bold text-center mb-4">
