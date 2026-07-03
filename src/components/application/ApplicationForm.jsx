@@ -36,44 +36,53 @@ export const ApplicationForm = ({onSubmit})=>{
 
 
     return (<>
-    <form className="max-w-xl mx-auto bg-white shadow rounded-lg p-6 space-y-5"
+    <form className="max-w-xl mx-auto bg-white shadow shadow-lg shadow-md shadow-sm  p-6 space-y-5 mt-16 "
     onSubmit={handleSubmit}>
         <div>
-            <h2 className="text-xl font-bold">
+            <h2 className="text-xl font-bold text-center mb-4">
                 Add Application
             </h2>
-            <label className="block mb-2">Company: </label>
+            <label className="block ">Company: </label>
             <input
              type="text" 
             placeholder="company name "
             name="company"
             value={formData.company}
             onChange={handleChange} 
+            className="w-full px-4 py-2 border rounded mb-2"
+            />
+            <label className="block "> URL: </label>
+            <input
+             type="url" 
+            placeholder="https://careers.company.com/..."
+            name="companyUrl"
+            value={formData.companyUrl}
+            onChange={handleChange} 
             className="w-full px-4 py-2 border rounded"
             />
         </div>
-        <div>
-            <label  className="block mb-2">Role: </label>
+        <div className="mt-0">
+            <label  className="block ">Role: </label>
 
             <input type="text"
             name="role"
             value={formData.role}
             onChange={handleChange} 
             placeholder="What role ? "
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border rounded "
             />
         </div>
-        <div>
-            <label  className="block mb-2">Date applied</label>
+        <div  className="mt-0">
+            <label  className="block ">Date applied</label>
             <input type="date"
             name="dateApplied"
             value={formData.dateApplied}
             onChange={handleChange}
             placeholder="date applied" 
-            className="w-full px-4 py-2 border rounder"/>
+            className="w-full px-4 py-2 border rounded "/>
         </div>
         <div>
-            <label className="block mb-2">Status:</label>
+            <label className="block ">Status:</label>
             <select
              name="status" 
             id="" 
@@ -101,7 +110,9 @@ export const ApplicationForm = ({onSubmit})=>{
 
 
 const initialState = {
+
     company: "",
+    companyUrl: "",
     role : "",
     dateApplied: "",
     status : "applied"
