@@ -1,5 +1,8 @@
+
 import { ApplicationForm } from "../components/application/ApplicationForm"
+import { useState } from "react"
 export const AddApplication = ()=>{
+   const [toastMessage, setToastMessage] = useState(false)  
 
    // created a save fnc to save application
    // use local storage
@@ -11,6 +14,12 @@ export const AddApplication = ()=>{
       const existingApplications =JSON.parse(localStorage.getItem("applications"))|| []
 
       localStorage.setItem('applications', JSON.stringify([...existingApplications, data]))
+
+      setToastMessage(true)
+      setTimeout(()=>{
+         setToastMessage(false)
+      },5000)
+
      
    }
 

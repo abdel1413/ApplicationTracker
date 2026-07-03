@@ -15,14 +15,16 @@ export const Applications =()=>{
      const [filter, setFilter] = useState("all")
      const [search, setSearch] = useState("")
      const [sortOrder, setSortOrder] = useState('latest')
+   
 
    
 
      const loadApplications= ()=>{
 
        const data =JSON.parse(localStorage.getItem('applications'))||[]
-       console.log(data)  
+   
        setApplications(data)
+
      }
 
    // get all applications once so we use useEffect()and pass [] as dependency
