@@ -144,9 +144,9 @@ export const Applications =()=>{
              key={app.id}>
                 <div   >
                   <h2 className=" text-xl font-bold space-y-2 mb-2">
-                    {app.companyUrl? (
-                      <a href={app.companyUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer">
-                        {app.company}
+                    {app.jobPostingUrl? (
+                      <a href={app.jobPostingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer">
+                        {app.company[0].toUpperCase() + app.company.slice(1)}
                         <FaExternalLinkAlt className="inline-block ml-1 text-sm text-gray-400" />
                       </a>
                     ) : (

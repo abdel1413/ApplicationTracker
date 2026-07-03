@@ -51,12 +51,11 @@ export const ApplicationForm = ({onSubmit})=>{
             onChange={handleChange} 
             className="w-full px-4 py-2 border rounded mb-2"
             />
-            <label className="block "> URL: </label>
-            <input
+            <label className="block ">Job URL: </label> <input
              type="url" 
             placeholder="https://careers.company.com/..."
-            name="companyUrl"
-            value={formData.companyUrl}
+            name="jobPostingUrl"
+            value={formData.jobPostingUrl}
             onChange={handleChange} 
             className="w-full px-4 py-2 border rounded"
             />
@@ -112,7 +111,7 @@ export const ApplicationForm = ({onSubmit})=>{
 const initialState = {
 
     company: "",
-    companyUrl: "",
+    jobPostingUrl: "",
     role : "",
     dateApplied: "",
     status : "applied"
