@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt} from "react-icons/fa"
 import dayjs from "dayjs"
+ import {toast} from "react-toastify"
 
 
 export const Applications =()=>{    
@@ -44,6 +45,7 @@ export const Applications =()=>{
     setApplications(filtered)
 
     localStorage.setItem('applications',JSON.stringify(filtered))
+    toast.success("Application deleted successfully!")
 
    }
 

@@ -1,10 +1,11 @@
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
+import { toast } from "react-toastify"
 export const ApplicationForm = ({onSubmit})=>{
     const [formData, setFormData] = useState(initialState)
-    const [toastMessage, setToastMessage] = useState(false) 
+    // const [toastMessage, setToastMessage] = useState(false) 
     const navigate = useNavigate()
-
+   
     const handleSubmit =(e)=>{ 
          e.preventDefault();
          if(!formData.company || !formData.role || !formData.status ) {
@@ -23,17 +24,21 @@ export const ApplicationForm = ({onSubmit})=>{
       
      onSubmit(newApplication)
 
-      setToastMessage(true)
-      setTimeout(()=>{
-         setToastMessage(false)
+//       setToastMessage(true)
+//       setTimeout(()=>{
+//          setToastMessage(false)
 
-      },5000)
-   setToastMessage(true)
-      setTimeout(()=>{
-         navigate('/Applications')
-      }  ,8000)
+//       },5000)
+//    setToastMessage(true)
+//       setTimeout(()=>{
+//          navigate('/Applications')
+//       }  ,8000)
 
      
+     toast.success("Application saved successfully!")
+     setTimeout(()=>{
+        navigate('/Applications')
+     },7000)
 
      setFormData(initialState)
 

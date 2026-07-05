@@ -11,6 +11,8 @@ import { AddApplication } from './pages/AddApplication'
 import { Applications } from './pages/Applications'
 import { NotFound } from './pages/NotFound'
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -19,6 +21,17 @@ function App() {
     <>
       
       <Navbar />
+      
+      <ToastContainer 
+      position="top-right"
+       autoClose={5000} 
+       hideProgressBar={false}
+        newestOnTop={false} 
+        closeOnClick rtl={false} 
+        pauseOnFocusLoss 
+        draggable pauseOnHover 
+        theme="light" />  
+
     <Routes>
       <Route path="/" 
       element={<Dashboard/>}/>
@@ -31,7 +44,7 @@ function App() {
 
       <Route  path='/edit/:id'
        element={<EditApplication/>}/>
-       
+
       <Route path='*' 
       element={<NotFound />}
       

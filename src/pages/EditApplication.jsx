@@ -8,6 +8,7 @@
 
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export const  EditApplication =()=>{
 
@@ -54,7 +55,11 @@ export const  EditApplication =()=>{
          localStorage.setItem('applications',JSON.stringify(updated))
        
          //redirect to applications
-        navigate('/applications')
+         toast.success("Application updated successfully!")
+         setTimeout(()=>{       
+
+        navigate('/applications')   
+         },7000)
 
     }
     return (<div className="p-6 max-w-xl mx-auto">
