@@ -8,12 +8,12 @@ export const Navbar =()=>{
 
  
 
-    <nav className=" fixed top-0 left-0 w-full mb-9 border-b h-16 text-lg flex  items-center justify-between bg-white  px-8">
-       
-         <h1 className="text-xl font-bold text-blue-600">
+    <nav className=" fixed top-0 left-0 w-full mb-9 border-b h-16 text-lg  bg-white  px-8 shadow-sm z-50 ">
+       <div className="max-w-6xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex  items-center justify-between">
+         <h1 className=" text-lg sm:text-xl font-bold text-blue-600">
         JobTracker
         </h1>
-        <div  className="flex gap-8 font-medium">
+        <div  className="flex gap-4 sm:gap-8 sm:text-base font-medium">
             <NavLink to="/"  end
             className={activeNavLink}>
             Dashboard
@@ -28,6 +28,7 @@ export const Navbar =()=>{
             className={activeNavLink}>
             Applications
             </NavLink>
+         </div>
        </div>
      </nav>
     </>)

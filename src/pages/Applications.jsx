@@ -144,24 +144,32 @@ export const Applications =()=>{
 
             {filtered.map(app =>{
 
-           return  < div className="max-w-5xl mx-auto border border-gray-200 p-4 rounded-large shadow-sm flex justify-between  items-center m-5 space-y-2 hover:shadow-lg transition-shadow duration-300 hover: -translate-y-1 scale-105 transition-all duration-300"
+           return  < div className="max-w-5xl mx-auto border border-gray-200 p-4 sm:p-5  rounded-large shadow-sm flex-col sm:flex-row sm: items-center sm:justify-between   m-5 gap-4 hover:shadow-lg transition-all  duration-300 hover: -translate-y-1 scale-105 transition-all duration-300"
              key={app.id}>
-                <div   >
-                  <h2 className=" text-xl font-bold space-y-2 mb-2">
+                
+                  <div classname="space-y-2 mb-2">
+                  
+                  <h2 className=" text-lg sm:text-xl font-semibold mb-2">
                     {app.jobPostingUrl? (
                       <a href={app.jobPostingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer">
                         {app.company[0].toUpperCase() + app.company.slice(1)}
                         <FaExternalLinkAlt className="inline-block ml-1 text-sm text-gray-400" />
                       </a>
                     ) : (
-                      <span className="font-semibold">{app.company}</span>
+                      <span className="  text-lg sm:text-xl font-semibold">{app.company}</span>
                     )}
                   </h2>
-                  <p className="flex items-center gap-2 space-y-2 mb-2 text-gray-600"><FaBriefcase />{app.role}</p>
+                  <p className="flex items-center gap-2 mb-2 text-gray-600 ">
+                    <FaBriefcase />
+                    {app.role}
+                    </p>
 
-                  <p className="flex items-center space-y-2 mb-2 text-gray-600"><FaCalendarAlt /> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
+                  <p className="flex items-center space-y-2 mb-2 text-gray-600">
+                    <FaCalendarAlt /> 
+                    {dayjs(app.dateApplied).format("MMMM D, YYYY")}
+                  </p>
                   <span
-                  className={`px-3 py-0 rounded-full text-sm font-medium mr-2 space-y-2 text-xl  mb-2 ${
+                  className={`px-3 py-1 rounded-full inline-block text-sm font-medium mr-2 text-xl  mb-2 ${
                     app.status ==="applied"
                     ? "bg-blue-300 text-white-500 mb-2"
                     : app.status ==="offer"
@@ -169,16 +177,16 @@ export const Applications =()=>{
                     : app.status ==="interview"
                     ? "bg-yellow-300 text-white500 mb-2"
                     : "bg-red-400 text-white-500 mb-2"
-                  } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}</span>
+                  } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                  </span>
                   {/* <span className="text-xl space-y-2">{app.status}</span> */}
                    </div>
-                   <div className="flex gap-3" >
-                    <Link to={`/edit/${app.id}`}
-                    
-                     className="bg-blue-500 text-white text-sm px-4 py-1 rounded-lg hover:bg-blue-600 transition-colors duration-200">
-                        Edit</Link>
-
-                     <button className="bg-red-500  text-white text-sm rounded-lg px-4 py-1 hover:bg-red-600 transition-colors duration-200"
+                   <div className="flex gap-3 justify-end sm:flex-none" >
+                      <Link to={`/edit/${app.id}`}
+                            className="flex-1 sm:flex-none bg-blue-500 text-white text-sm text-center px-4 py-2  rounded hover:bg-blue-600 transition-colors duration-200">
+                             Edit
+                      </Link>
+                     <button className="flex-1 sm:flex-none bg-red-500  text-white text-sm rounded-lg px-4 py-2 hover:bg-red-600 transition-colors duration-200"
                       onClick={()=>handleDelete(app.id)}>
                        Delete
                      </button>
