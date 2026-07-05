@@ -1,8 +1,10 @@
 import { useState } from "react"
-
+import {useNavigate} from "react-router-dom"
 export const ApplicationForm = ({onSubmit})=>{
     const [formData, setFormData] = useState(initialState)
- 
+    const [toastMessage, setToastMessage] = useState(false) 
+    const navigate = useNavigate()
+
     const handleSubmit =(e)=>{ 
          e.preventDefault();
          if(!formData.company || !formData.role || !formData.status ) {
@@ -20,22 +22,35 @@ export const ApplicationForm = ({onSubmit})=>{
       //pass new app to prop 
       
      onSubmit(newApplication)
+
+      setToastMessage(true)
+      setTimeout(()=>{
+         setToastMessage(false)
+
+      },5000)
+   setToastMessage(true)
+      setTimeout(()=>{
+         navigate('/Applications')
+      }  ,8000)
+
+     
+
      setFormData(initialState)
 
     }
     const handleChange =(e)=>{
-
         const {name, value} = e.target; 
-  
-
         setFormData((prev) =>( {...prev, [name]: value }))
-
-
     }
 
 
 
     return (<>
+    {toastMessage && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
+             ✅ Application saved successfully!
+        </div>
+    )  }
     <form className="max-w-xl mx-auto bg-white shadow shadow-lg   p-6 space-y-5 mt-20 bg-gray-100  "
     onSubmit={handleSubmit}>
         <div>

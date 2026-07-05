@@ -2,7 +2,7 @@
 import { ApplicationForm } from "../components/application/ApplicationForm"
 import { useState } from "react"
 export const AddApplication = ()=>{
-   const [toastMessage, setToastMessage] = useState(false)  
+   
 
    // created a save fnc to save application
    // use local storage
@@ -15,19 +15,13 @@ export const AddApplication = ()=>{
 
       localStorage.setItem('applications', JSON.stringify([...existingApplications, data]))
 
-      setToastMessage(true)
-      setTimeout(()=>{
-         setToastMessage(false)
-      },5000)
-
-     
    }
 
     
  return  (
    <div className="gap-6">
 
-      <ApplicationForm onSubmit={saveApplication} />
+      <ApplicationForm onSubmit={saveApplication}  />
 
    </div>)
 
