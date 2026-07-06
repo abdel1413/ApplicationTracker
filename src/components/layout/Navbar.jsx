@@ -32,21 +32,23 @@ export const Navbar =()=>{
 
        </div>
        {menuOpen && (
-        <div className="sm:hidden bg-white border-b shadow-sm">
+        <div className={`sm:hidden overflow-hidden bg-white border-t shadow-md transition-all duration-300 ease-in-out ${
+    menuOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+  }`}>
             <div className="flex flex-col gap-4 p-4">
                 <NavLink to="/"  end
-                className={activeNavLink}
+                className={mobileNavLink}
                 onClick={()=> setMenuOpen(false)}>
                 Dashboard 
                 </NavLink>
 
                 <NavLink to="/Add"
-                className={activeNavLink}
+                className={mobileNavLink}
                 onClick={()=> setMenuOpen(false)}>
                 Add  </NavLink>
 
                <NavLink to="/Applications"
-                className={activeNavLink}
+                className={mobileNavLink}
                 onClick={()=> setMenuOpen(false)}>
                 Applications </NavLink>
             </div>
@@ -59,4 +61,11 @@ export const Navbar =()=>{
 }
 
 
-const activeNavLink = ({isActive}) => isActive ? "text-blue-500  border-b-2 border-blue-500 pb-1" : "text-gray-700 hover:text-blue-500 pb-1 transition-colors duration-200"
+const activeNavLink = ({isActive}) => isActive 
+? "text-blue-500  border-b-2 border-blue-500 pb-1" 
+: "text-gray-700 hover:text-blue-500 pb-1 transition-colors duration-200"
+
+
+const mobileNavLink = ({ isActive }) => isActive
+    ? "block px-6 py-4 bg-blue-50 text-blue-600 font-semibold"
+    : "block px-6 py-4 text-gray-700 hover:bg-gray-100";
