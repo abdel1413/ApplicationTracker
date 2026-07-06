@@ -51,11 +51,11 @@ export const ApplicationForm = ({onSubmit})=>{
 
 
     return (<>
-    {toastMessage && (
+    {/* {toastMessage && (
         <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
              ✅ Application saved successfully!
         </div>
-    )  }
+    )  } */}
     <form className="max-w-xl mx-auto bg-white shadow shadow-lg   p-6 space-y-5 mt-20 bg-gray-100  "
     onSubmit={handleSubmit}>
         <div>
