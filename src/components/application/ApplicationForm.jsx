@@ -69,7 +69,7 @@ export const ApplicationForm = ({onSubmit})=>{
             name="company"
             value={formData.company}
             onChange={handleChange} 
-            className="w-full px-4 py-2 border rounded mb-2"
+            className="w-full  md:w-96 px-3 h-10 border rounded placeholder-gray-400  "
             />
             <label className="block ">Job URL: </label> <input
              type="url" 
@@ -77,7 +77,7 @@ export const ApplicationForm = ({onSubmit})=>{
             name="jobPostingUrl"
             value={formData.jobPostingUrl}
             onChange={handleChange} 
-            className="w-full px-4 py-2 border rounded"
+            className="w-full  md:w-96 px-3 h-10 border rounded placeholder-gray-400  "
             />
         </div>
         <div className="mt-0">

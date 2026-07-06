@@ -11,6 +11,7 @@ import dayjs from "dayjs"
  import {toast} from "react-toastify"
 
 
+
 export const Applications =()=>{    
     const [applications, setApplications] = useState([])
      const [filter, setFilter] = useState("all")
@@ -89,39 +90,39 @@ export const Applications =()=>{
    
     
     return (
-    <div className=" flex flex-col justify-between justify-content items-center p-6 mt-16">
-       <h1 className="text-2xl font-bold text-center ">
+    <div className="pt-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+       <h1 className="text-2xl font-bold text-center flex items-center justify-center gap-2 mb-4 md:mb-0">
               Applications <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
                 {filtered.length}
               </span>
-            </h1>
+         </h1>
              
-        <div className="flex  items-center justify-center gap-4 my-8 mb-4">
-            <div >
+        <div className="flex flex-col sm:flex-row  items-stretch sm:items-center justify-center gap-3 my-8 ">
+            
                 <select name="applications" 
-                
                    value={filter}
                    key={1}
                    onChange={e => setFilter(e.target.value)}
-                   className="border rounded px-3 h-10 ">
+                   className="border rounded px-3 h-10  w-full  sm:w-36"> 
                   <option value="all">All</option>
                   <option value="applied">Applied</option>
                   <option value="interview">Interview</option>
                   <option value="offer">Offer</option>
                   <option value="rejected">Rejected</option>
                 </select>
-              </div>
-              <div >
+              
+           
                 <input 
                   type="text" 
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Search company or role..."
-                  className="border rounded   px-3 w-96 lg:w-[500px] h-10 "/>
-              </div>
-              <div  >
+                  className="border rounded px-3 h-10  w-full sm:w-80 lg:w-96"/>
+             
+           
                 <select name="" id=""
-                 className="border rounded px-3 h-10 "
+                 className="border rounded px-3 h-10 w-full  sm:w-44"
                   value={sortOrder} 
                   onChange={e => setSortOrder(e.target.value)}>
                   <option value="latest">Latest first</option>
@@ -129,25 +130,28 @@ export const Applications =()=>{
                   <option value="az"> Company A-Z</option>
                   <option value="za">Company Z-A</option>
                 </select>
-              </div>
+              
            </div>
            
-          <div className="w-full mx:auto px-6 m-5  ">
+          <div className="space-y-5 ">
+            {!filtered.length &&(
+              <div className="text-center py-10 bg-gray-50 border rounded">
 
-            {!filtered.length &&(<div className="text-center py-10 bg-gray-50 border rounded">
-              <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
-              <p className="text-gray-500  ">
-                try changing your search or filter
-              </p>
+                <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
+                <p className="text-gray-500  ">
+                  try changing your search or filter
+                </p>
 
-              </div>)}
+              </div>
+            )}
 
             {filtered.map(app =>{
 
-           return  < div className="max-w-5xl mx-auto border border-gray-200 p-4 sm:p-5  rounded-large shadow-sm flex-col sm:flex-row sm: items-center sm:justify-between   m-5 gap-4 hover:shadow-lg transition-all  duration-300 hover: -translate-y-1 scale-105 transition-all duration-300"
+           return ( < div 
+           className="border border-gray-200 p-4 sm:p-5  rounded-lg shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between  gap-4 hover:shadow-lg transition-all  duration-300"
              key={app.id}>
                 
-                  <div classname="space-y-2 mb-2">
+                  <div className="space-y-2 mb-2">
                   
                   <h2 className=" text-lg sm:text-xl font-semibold mb-2">
                     {app.jobPostingUrl? (
@@ -164,37 +168,42 @@ export const Applications =()=>{
                     {app.role}
                     </p>
 
-                  <p className="flex items-center space-y-2 mb-2 text-gray-600">
+                  <p className="flex items-center gap-2 mb-2 text-gray-600">
                     <FaCalendarAlt /> 
                     {dayjs(app.dateApplied).format("MMMM D, YYYY")}
                   </p>
                   <span
-                  className={`px-3 py-1 rounded-full inline-block text-sm font-medium mr-2 text-xl  mb-2 ${
-                    app.status ==="applied"
-                    ? "bg-blue-300 text-white-500 mb-2"
-                    : app.status ==="offer"
-                    ?"bg-green-300 text-wite-500 mb-2"
-                    : app.status ==="interview"
-                    ? "bg-yellow-300 text-white500 mb-2"
-                    : "bg-red-400 text-white-500 mb-2"
-                  } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}
-                  </span>
+                    className={`px-3 py-1 rounded-full inline-block text-sm font-medium mb-2 ${
+                      app.status ==="applied"
+                      ? "bg-blue-100 text-blue-700 mb-2"
+                      : app.status ==="offer"
+                      ?"bg-green-100 text-green-700 mb-2"
+                      : app.status ==="interview"
+                      ? "bg-yellow-00 text-yellow-700 mb-2"
+                      : "bg-red-100 text-red-700 mb-2"
+                    } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                    </span>
                   {/* <span className="text-xl space-y-2">{app.status}</span> */}
                    </div>
-                   <div className="flex gap-3 justify-end sm:flex-none" >
+
+                   <div className="flex gap-3" >
+
                       <Link to={`/edit/${app.id}`}
-                            className="flex-1 sm:flex-none bg-blue-500 text-white text-sm text-center px-4 py-2  rounded hover:bg-blue-600 transition-colors duration-200">
+                            className="flex-1 sm:flex-none bg-blue-400 text-white text-sm text-center px-4 py-2  rounded hover:bg-blue-600 transition">
                              Edit
                       </Link>
-                     <button className="flex-1 sm:flex-none bg-red-500  text-white text-sm rounded-lg px-4 py-2 hover:bg-red-600 transition-colors duration-200"
+
+                     <button 
+                     className="flex-1 sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-2 hover:bg-red-600 transition"
                       onClick={()=>handleDelete(app.id)}>
                        Delete
                      </button>
                  </div>
              </div>
+             )
             })}
           </div>
-           
-           
-   {} </div>)
+       </div>
+      </div>
+       )
 }
