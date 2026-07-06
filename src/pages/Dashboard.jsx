@@ -1,11 +1,14 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react"
 import {
   FaClipboardList,
   FaPaperPlane,
   FaHandshake,
   FaCheckCircle,
-  FaTimesCircle
+  FaTimesCircle,
+  FaChevronRight
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const Dashboard =()=>{
     //get all the applications
@@ -29,6 +32,10 @@ const total =  applications.length;
   const rejected = applications.filter(app => app.status === 'rejected').length;
   
   const interview  = applications.filter(app => app.status === 'interview').length;
+
+  const recentApplications =[ ...applications]
+  .sort((a, b) => new Date(b.dateApplied) - new Date(a.dateApplied))
+  .slice(0, 5);
   
       return (
     <div className="p-6 mt-20 ">
@@ -98,6 +105,35 @@ const total =  applications.length;
             Rejected</h2>
        </div>
           <p className="text-4xl font-bold mt-1">{rejected}</p>
+        </div>
+
+      </div>
+
+      <div className="mt-8">
+        <div className="flex items-center justify-between mb-4">
+
+
+      <h2>
+        Recent Applications  
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        View All →
+        </div>
+           
+        </div>
+        <div>
+          {recentApplications.map(app => (
+            <div key={app.id} className=" flex gap-6 border rounded p-4 mb-4 bg-white shadow-md transition-all duration-300 hover:shadow-lg">
+              <div className="flex flex-col mb-2 gap-2">
+                <h3 className="text-xl font-semibold mr-2">{app.company} <Link to={`/edit/${app.id}`} className="text-blue-500 hover:underline"/>
+                <FaChevronRight className="inline-block ml-0 text-blue-500 cursor-pointer"/>
+                </h3>
+                <p className="text-gray-600 text-xl">{app.role}</p>
+                <p className="text-gray-500 text-lg "> {app.status}</p>
+              </div>
+              <p className="text-gray-500 text-sm">Applied on: {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
+            </div>
+          ))}
         </div>
 
       </div>
