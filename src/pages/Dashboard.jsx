@@ -9,6 +9,7 @@ import {
   FaChevronRight
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {FaCalendarAlt} from "react-icons/fa"
 
 export const Dashboard =()=>{
     //get all the applications
@@ -123,16 +124,27 @@ const total =  applications.length;
         </div>
         <div>
           {recentApplications.map(app => (
+              <Link to={`/edit/${app.id}`} className=" border border-gray-300 rounded-lg p-4 mb-2 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500" key={app.id}>
             <div key={app.id} className=" flex gap-6 border rounded p-4 mb-4 bg-white shadow-md transition-all duration-300 hover:shadow-lg">
-              <div className="flex flex-col mb-2 gap-2">
-                <h3 className="text-xl font-semibold mr-2">{app.company} <Link to={`/edit/${app.id}`} className="text-blue-500 hover:underline"/>
-                <FaChevronRight className="inline-block ml-0 text-blue-500 cursor-pointer"/>
-                </h3>
-                <p className="text-gray-600 text-xl">{app.role}</p>
-                <p className="text-gray-500 text-lg "> {app.status}</p>
+              <div className="flex flex-col mb-2 gap-2 ">
+                  <h3 className="text-xl md:text-lg font-semibold mr-2 ">{app.company} 
+                  <FaChevronRight className="inline-block ml-0 text-blue-500 cursor-pointer"/>
+                  </h3>
+                  <p className="text-gray-700 font-medium">{app.role}</p>
+                  <div className="flex items-center gap-2">
+                 <span className={`w-4 h-4 rounded-full ${app.status==='applied' 
+                  ? ' bg-blue-500' 
+                  : app.status==='interview' 
+                  ? 'bg-yellow-500' 
+                  : app.status==='offered' 
+                  ? 'bg-green-500 ' 
+                  : 'bg-red-500 '} `}> </span>
+                  <span className="text-gray-500 text-lg font-medium "> {app.status[0].toUpperCase() + app.status.slice(1)}</span>
+                  </div>
+                  <p className="text-gray-500 text-sm "><FaCalendarAlt className="inline-block mr-2 text-lg"/> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
               </div>
-              <p className="text-gray-500 text-sm">Applied on: {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
             </div>
+              </Link>
           ))}
         </div>
 
