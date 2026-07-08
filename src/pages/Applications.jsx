@@ -147,7 +147,7 @@ export const Applications =()=>{
 
             {filtered.map(app =>{
 
-           return ( < div 
+           return ( <div 
            className="border border-gray-200 p-4 sm:p-5  rounded-lg shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between  gap-4 hover:shadow-lg transition-all  duration-300"
              key={app.id}>
                 
@@ -179,7 +179,7 @@ export const Applications =()=>{
                       : app.status ==="offer"
                       ?"bg-green-100 text-green-700 mb-2"
                       : app.status ==="interview"
-                      ? "bg-yellow-00 text-yellow-700 mb-2"
+                      ? "bg-yellow-100 text-yellow-700 mb-2"
                       : "bg-red-100 text-red-700 mb-2"
                     } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                     </span>
@@ -195,7 +195,12 @@ export const Applications =()=>{
 
                      <button 
                      className="flex-1 sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-2 hover:bg-red-600 transition"
-                      onClick={()=>handleDelete(app.id)}>
+                      onClick={()=>{
+                        const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
+                        if (confirmDelete) {
+                          handleDelete(app.id)
+                        }
+                      }}>
                        Delete
                      </button>
                  </div>
