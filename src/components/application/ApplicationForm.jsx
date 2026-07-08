@@ -58,7 +58,7 @@ export const ApplicationForm = ({onSubmit})=>{
     )  } */}
     <form className="max-w-xl mx-auto bg-white shadow shadow-lg   p-6 space-y-5 mt-20 bg-gray-100  "
     onSubmit={handleSubmit}>
-        <div>
+        <div className="space-y-2">
             <h2 className="text-xl font-bold text-center mb-4">
                 Add Application
             </h2>
@@ -69,7 +69,7 @@ export const ApplicationForm = ({onSubmit})=>{
             name="company"
             value={formData.company}
             onChange={handleChange} 
-            className="w-full  md:w-96 px-3 h-10 border rounded placeholder-gray-400  "
+            className="w-full  px-4 py-3 h-10 border rounded placeholder-gray-400  "
             />
             <label className="block ">Job URL: </label> <input
              type="url" 
@@ -77,7 +77,7 @@ export const ApplicationForm = ({onSubmit})=>{
             name="jobPostingUrl"
             value={formData.jobPostingUrl}
             onChange={handleChange} 
-            className="w-full  md:w-96 px-3 h-10 border rounded placeholder-gray-400  "
+            className="w-full px-3 h-10 border rounded placeholder-gray-400  "
             />
         </div>
         <div className="mt-0">

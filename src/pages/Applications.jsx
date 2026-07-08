@@ -40,13 +40,53 @@ export const Applications =()=>{
    const handleDelete =(id)=>{
     const data =JSON.parse(localStorage.getItem("applications"))||[]
 
+      //create a variable to hold the  app to be deleted 
+      const deletedApp = data.find(item => item.id === id)
 
     const filtered = data.filter(item => item.id !==id)
 
     setApplications(filtered)
 
     localStorage.setItem('applications',JSON.stringify(filtered))
-    toast.success("Application deleted successfully!")
+
+     toast(({closeToast})=>(
+      
+         <div className="flex items-center justify-between gap-4" >
+        <span className="text-white">Application deleted successfully!</span>
+        
+        <button className="ml-4 px-2 py-1  text-blue-500 semi-bold rounded hover:underline transition"
+        onClick={()=>{
+          //restore the deleted app to the applications list
+          const restoredApplications = [...filtered, deletedApp]
+
+          setApplications(restoredApplications)
+          
+          localStorage.setItem('applications', JSON.stringify(restoredApplications))
+             toast.success("Application restored successfully!")
+          // toast.dismiss()
+          closeToast()
+
+        }}
+        >
+          Undo
+        </button>
+       </div> 
+     )),
+     
+      {
+        autoClose: 5000,
+        // closeOnClick: true,
+        // pauseOnHover: true,
+        // draggable: true,
+        // progress: undefined,
+        // theme: "light", 
+      }
+     
+ 
+
+
+
+    
 
    }
 
@@ -196,10 +236,11 @@ export const Applications =()=>{
                      <button 
                      className="flex-1 sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-2 hover:bg-red-600 transition"
                       onClick={()=>{
-                        const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
-                        if (confirmDelete) {
-                          handleDelete(app.id)
-                        }
+                        // const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
+                        // if (confirmDelete) {
+                        //   handleDelete(app.id)
+                        // }
+                        handleDelete(app.id)
                       }}>
                        Delete
                      </button>
