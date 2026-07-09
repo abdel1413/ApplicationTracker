@@ -38,16 +38,37 @@ export const Applications =()=>{
    // update the application using setApplication
    // save updated into storage
    const handleDelete =(id)=>{
+
+    // 1 for permanent deletion, get data from storage
     const data =JSON.parse(localStorage.getItem("applications"))||[]
 
-      //create a variable to hold the  app to be deleted 
+    // 2 create a variable to hold the  app to be deleted  from localstorage
       const deletedApp = data.find(item => item.id === id)
 
-    const filtered = data.filter(item => item.id !==id)
+   
 
-    setApplications(filtered)
+   // 3 update the state with filtered apps
+   //  setApplications(filtered)
 
-    localStorage.setItem('applications',JSON.stringify(filtered))
+   // 4 save filtered  to storage 
+   //  localStorage.setItem('applications',JSON.stringify(filtered))
+
+
+      
+    //remove the app from the local storage
+    const filteredApp = data.filter(app => app.id !==id )
+
+    if(!filteredApp) return;
+
+   // remove the delete app immediately from ui 
+   setApplications(filteredApp)
+
+   //wait to 5 sec to delete it permanently from storage
+  let deleteTimer =  setTimeout(() => {
+     localStorage.setItem('applications', JSON.stringify(filteredApp))
+   }, 5000);
+
+
 
      toast(({closeToast})=>(
       
@@ -57,15 +78,21 @@ export const Applications =()=>{
         <button className="ml-4 px-2 py-1  text-blue-500 semi-bold rounded hover:underline transition"
         onClick={()=>{
           //restore the deleted app to the applications list
-          const restoredApplications = [...filtered, deletedApp]
-
-          setApplications(restoredApplications)
+         // const restoredApplications = [...filtered, deletedApp]
           
-          localStorage.setItem('applications', JSON.stringify(restoredApplications))
-             toast.success("Application restored successfully!")
-          // toast.dismiss()
-          closeToast()
+         clearTimeout(deleteTimer)
 
+          //restore the app deleted from ui 
+          const restoredAppUi = [...filteredApp, deletedAppUl]
+
+          //setApplications(restoredApplications)
+
+          // update state with restoredAppUi
+          setApplications(restoredAppUi)
+
+          closeToast()
+          toast.success("Application restored successfully!")
+      
         }}
         >
           Undo
