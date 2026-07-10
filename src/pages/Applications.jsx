@@ -40,10 +40,9 @@ export const Applications =()=>{
    const handleDelete =(id)=>{
 
     // 1 for permanent deletion, get data from storage
-    const data =JSON.parse(localStorage.getItem("applications"))||[]
-
+    //const data =JSON.parse(localStorage.getItem("applications"))||[]
     // 2 create a variable to hold the  app to be deleted  from localstorage
-      const deletedApp = data.find(item => item.id === id)
+      const deletedApp = applications.find(item => item.id === id)
 
    
 
@@ -56,9 +55,9 @@ export const Applications =()=>{
 
       
     //remove the app from the local storage
-    const filteredApp = data.filter(app => app.id !==id )
+    const filteredApp = applications.filter(app => app.id !==id )
 
-    if(!filteredApp) return;
+    if(!deletedApp) return;
 
    // remove the delete app immediately from ui 
    setApplications(filteredApp)
@@ -75,25 +74,22 @@ export const Applications =()=>{
          <div className="flex items-center justify-between gap-4" >
         <span className="">Application deleted successfully!</span>
     
-        <button className="ml-4 px-2 py-1  text-blue-500 semi-bold rounded hover:underline transition"
+        <button className="ml-4 px-2 py-1  text-blue-500 font-semibold rounded hover:underline transition"
         onClick={()=>{
           //restore the deleted app to the applications list
          // const restoredApplications = [...filtered, deletedApp]
           
-         clearTimeout(deleteTimer)
+     
 
-          //restore the app deleted from ui 
-          const restoredAppUi = [...filteredApp, deletedApp]
+           clearTimeout(deleteTimer)
 
-          //setApplications(restoredApplications)
+          //restore the app deleted earlier from ui        
+           setApplications((prev)=>[...prev, deletedApp])
 
-          // update state with restoredAppUi
-          // setApplications(restoredAppUi)
-          setApplications((prev)=>[...prev, deletedApp])
+     
 
           closeToast()
           setTimeout(() => {
-            
             toast.success("Application restored successfully!")
           }, 100);
       
@@ -102,23 +98,15 @@ export const Applications =()=>{
           Undo
         </button>
        </div> 
-     )),
-     
-      {
+     ), {
         autoClose: 5000,
          closeOnClick: false,
         // pauseOnHover: true,
         // draggable: true,
         // progress: undefined,
         // theme: "light", 
-      }
+      });
      
- 
-
-
-
-    
-
    }
 
      // use select option to filter applications 
