@@ -18,13 +18,13 @@ export const Dashboard =()=>{
     const [applications, setApplications] = useState([])
     useEffect(()=>{
 
-        const data = JSON.parse(localStorage.getItem('applications'))
+        const data = JSON.parse(localStorage.getItem('applications'))||[]
 
         setApplications(data)
 
     },[])
-
-const total =  applications.length; 
+console.log(applications)
+const total =  applications.length ; 
 
   const applied = applications.filter(app => app.status === 'applied').length;
 

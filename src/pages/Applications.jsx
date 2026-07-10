@@ -64,7 +64,7 @@ export const Applications =()=>{
    setApplications(filteredApp)
 
    //wait to 5 sec to delete it permanently from storage
-  let deleteTimer =  setTimeout(() => {
+  const deleteTimer =  setTimeout(() => {
      localStorage.setItem('applications', JSON.stringify(filteredApp))
    }, 5000);
 
@@ -73,8 +73,8 @@ export const Applications =()=>{
      toast(({closeToast})=>(
       
          <div className="flex items-center justify-between gap-4" >
-        <span className="text-white">Application deleted successfully!</span>
-        
+        <span className="">Application deleted successfully!</span>
+    
         <button className="ml-4 px-2 py-1  text-blue-500 semi-bold rounded hover:underline transition"
         onClick={()=>{
           //restore the deleted app to the applications list
@@ -83,15 +83,19 @@ export const Applications =()=>{
          clearTimeout(deleteTimer)
 
           //restore the app deleted from ui 
-          const restoredAppUi = [...filteredApp, deletedAppUl]
+          const restoredAppUi = [...filteredApp, deletedApp]
 
           //setApplications(restoredApplications)
 
           // update state with restoredAppUi
-          setApplications(restoredAppUi)
+          // setApplications(restoredAppUi)
+          setApplications((prev)=>[...prev, deletedApp])
 
           closeToast()
-          toast.success("Application restored successfully!")
+          setTimeout(() => {
+            
+            toast.success("Application restored successfully!")
+          }, 100);
       
         }}
         >
@@ -102,7 +106,7 @@ export const Applications =()=>{
      
       {
         autoClose: 5000,
-        // closeOnClick: true,
+         closeOnClick: false,
         // pauseOnHover: true,
         // draggable: true,
         // progress: undefined,
