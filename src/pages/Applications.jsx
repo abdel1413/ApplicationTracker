@@ -40,9 +40,9 @@ export const Applications =()=>{
    const handleDelete =(id)=>{
 
     // 1 for permanent deletion, get data from storage
-    //const data =JSON.parse(localStorage.getItem("applications"))||[]
+    const data =JSON.parse(localStorage.getItem("applications"))||[]
     // 2 create a variable to hold the  app to be deleted  from localstorage
-      const deletedApp = applications.find(item => item.id === id)
+      const deletedApp = data.find(item => item.id === id)
 
    
 
@@ -55,7 +55,7 @@ export const Applications =()=>{
 
       
     //remove the app from the local storage
-    const filteredApp = applications.filter(app => app.id !==id )
+    const filteredApp = data.filter(app => app.id !==id )
 
     if(!deletedApp) return;
 
@@ -84,14 +84,17 @@ export const Applications =()=>{
            clearTimeout(deleteTimer)
 
           //restore the app deleted earlier from ui        
-           setApplications((prev)=>[...prev, deletedApp])
+          // setApplications((prev)=>[...prev, deletedApp])
+          setApplications(data)
 
      
+         //restore the storage too in case the timer ran
+         localStorage.setItem("applications", JSON.stringify(data))
 
           closeToast()
-          setTimeout(() => {
+          // setTimeout(() => {
             toast.success("Application restored successfully!")
-          }, 100);
+          // }, 100);
       
         }}
         >
@@ -101,7 +104,7 @@ export const Applications =()=>{
      ), {
         autoClose: 5000,
          closeOnClick: false,
-        // pauseOnHover: true,
+         pauseOnHover: false,
         // draggable: true,
         // progress: undefined,
         // theme: "light", 
