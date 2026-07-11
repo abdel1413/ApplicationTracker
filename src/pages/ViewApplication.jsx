@@ -1,5 +1,6 @@
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
+import { FaBriefcase, FaExchangeAlt } from "react-icons/fa"
 import { Link, useParams } from "react-router-dom"
 
 export const ViewApplication =()=>{
@@ -28,7 +29,7 @@ export const ViewApplication =()=>{
  return (
     <div>
         <h1>{application.company}</h1>
-        <p>{application.role}</p>
+        <p><FaBriefcase /> {application.role}</p>
         <span>{formattedStatus}</span>
         <div>{dayjs(application.dateApplied).format("MMMM D, YYYY")}</div>
         {application.jobPostingUrl &&(
@@ -37,11 +38,22 @@ export const ViewApplication =()=>{
                 <a href={application.jobPostingUrl}
                 rel='noopener noreferrer'
                 target="_blank"
-                > open job url</a>
+                > open job url
+                <FaExchangeAlt className="text-sm"/>
+                </a>
             </div>
         )
     }
-        
+    <div>
+        <h2>Notes</h2>
+       <p>{application.note || "No note added."}</p> 
     </div>
+        
+        <div>
+            <Link to="/applications">Back</Link>
+            <Link to={`/edit/${application.id}`}>Edit application</Link>
+        </div>
+    </div>
+
  )
 }
