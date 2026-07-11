@@ -91,7 +91,7 @@ export const ViewApplication =()=>{
         <div className="fex flex-col sm:flex-row gap-3 mt-8 ">
             <Link 
             to="/Applications"
-            className="text-center border border-gray-300 px-4 py-2 rounded hover:border-gray-100 transition">
+            className="text-center border border-gray-300 px-4 py-2 rounded hover:border-gray-100 transition mr-2">
             Back
             </Link>
 

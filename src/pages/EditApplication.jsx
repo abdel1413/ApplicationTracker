@@ -62,7 +62,7 @@ export const  EditApplication =()=>{
          },7000)
 
     }
-    return (<div className="p-6 max-w-xl mx-auto">
+    return (<div className="p-6 max-w-xl mx-auto pt-24">
         <h1 className="font-bold text-2xl mb-4 text-center justify mt-5">
         Edit application
 

@@ -43,7 +43,7 @@ function App() {
       <Route path='/applications'
        element={<Applications/>} />
        
-       <Route path='applications/:id' 
+       <Route path='/applications/:id' 
        element={<ViewApplication/>}/>
 
       <Route  path='/edit/:id'
