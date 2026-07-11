@@ -40,9 +40,11 @@ function App() {
       < Route  path="/Add" 
       element={<AddApplication/>}/>
 
-      <Route path='/Applications'
+      <Route path='/applications'
        element={<Applications/>} />
-       <Route path='applications/:id' element={<ViewApplication/>}/>
+       
+       <Route path='applications/:id' 
+       element={<ViewApplication/>}/>
 
       <Route  path='/edit/:id'
        element={<EditApplication/>}/>
