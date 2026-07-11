@@ -1,0 +1,47 @@
+import dayjs from "dayjs"
+import { useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
+
+export const ViewApplication =()=>{
+    const {id} = useParams()
+  const [application, setApplication] = useState(null)  
+
+  useEffect(()=>{
+      const data = JSON.parse(localStorage.getItem('applications'))||[]
+  
+      const selectedApplication = data.find(app => app.id === id) 
+      setApplication(selectedApplication)|| null
+  },[id])
+  console.log('app',application)
+  if(!application){
+      return (
+      <div className="pt-24 px-4 text-center">
+          <h1 className="text-2xl font-bold text-red-500 mb-3">Application not found</h1>
+           <Link to="/applications"
+           className="text-blue-500 text-medium hover:underline"/>
+            Back to Applications
+  
+      </div>)
+  }
+
+  const formattedStatus = application.status.charAt(0).toUpperCase() + application.slice(1)
+ return (
+    <div>
+        <h1>{application.company}</h1>
+        <p>{application.role}</p>
+        <span>{formattedStatus}</span>
+        <div>{dayjs(application.dateApplied).format("MMMM D, YYYY")}</div>
+        {application.jobPostingUrl &&(
+            <div>
+                <h2>Job posting</h2>
+                <a href={application.jobPostingUrl}
+                rel='noopener noreferrer'
+                target="_blank"
+                > open job url</a>
+            </div>
+        )
+    }
+        
+    </div>
+ )
+}

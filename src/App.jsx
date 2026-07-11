@@ -10,6 +10,7 @@ import { Navbar } from './components/layout/Navbar'
 import { AddApplication } from './pages/AddApplication'
 import { Applications } from './pages/Applications'
 import { NotFound } from './pages/NotFound'
+import { ViewApplication } from './pages/ViewApplication'
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,6 +42,7 @@ function App() {
 
       <Route path='/Applications'
        element={<Applications/>} />
+       <Route path='applications/:id' element={<ViewApplication/>}/>
 
       <Route  path='/edit/:id'
        element={<EditApplication/>}/>

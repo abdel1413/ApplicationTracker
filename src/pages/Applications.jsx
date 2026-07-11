@@ -249,6 +249,10 @@ export const Applications =()=>{
                    </div>
 
                    <div className="flex gap-3" >
+                    <Link to={ `applications/${app.id}`}
+                    className="flex-1 sm:flex-none bg-gray-700 text-white text-sm text-center px-4 py-2 rounded hover:bg-gray-800 transition " >
+                    View
+                    </Link>
 
                       <Link to={`/edit/${app.id}`}
                             className="flex-1 sm:flex-none bg-blue-400 text-white text-sm text-center px-4 py-2  rounded hover:bg-blue-600 transition">
