@@ -67,8 +67,6 @@ export const Applications =()=>{
      localStorage.setItem('applications', JSON.stringify(filteredApp))
    }, 5000);
 
-
-
      toast(({closeToast})=>(
       
          <div className="flex items-center justify-between gap-4" >
@@ -117,6 +115,8 @@ export const Applications =()=>{
     //  : applications.filter(app => app.status.toLowerCase() === filter)
 
     //combine  select option with search input result
+   
+
 
      const filtered = applications.filter(app =>{
       
@@ -254,14 +254,26 @@ export const Applications =()=>{
                              Edit
                       </Link>
 
-            {applicationToDelete &&(
+                <button
+                type="button"
+                 className="flex-1 sm:flex-none bg-red-500 text-white text-sm text-center px-4 py-2 rounded hover:bg-red-600 transition " 
+                 onClick={()=>setApplicationToDelete(app)}>
+                  Delete
+                </button>
+                 </div>
+             </div>
+             )
+            })}
+          </div>
+       </div>
+        {applicationToDelete &&(
               <div className="fixed inset-0 z-50 flex px-4 items-center justify-center bg-black/50">
-                  <div className="w-full max-x-sm rounded-xl bg-white shadow-xl ">
+                  <div className="w-full max-x-sm rounded-xl bg-white shadow-xl p-2  ">
                         <h2 className="text-xl font-bold text-gray-800">Delete application?</h2>
                         <p className="mt-2 text-gray-600">
-                          Are you sure you want to delete 
-                          <span className="font-semibold">{applicationToDelete.company}</span>
-                          ?
+                          Are you sure you want to delete  
+                          <span className="font-semibold ml-1 mr-1">{applicationToDelete.company}</span>
+                           ?
                         </p>
 
                         <div className="mt-6 flex justify-end gap-2" >
@@ -290,19 +302,6 @@ export const Applications =()=>{
                  </div>
               </div>
             )}
-            
-                <button
-                type="button"
-                 className="flex-1 sm:flex-none bg-red-500 text-white text-sm text-center px-4 py-2 rounded hover:bg-red-600 transition " 
-                 onClick={setApplicationToDelete(applications)}>
-                  Delete
-                </button>
-                 </div>
-             </div>
-             )
-            })}
-          </div>
-       </div>
       </div>
        )
 }
