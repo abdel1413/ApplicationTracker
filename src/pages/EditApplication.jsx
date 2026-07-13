@@ -16,7 +16,8 @@ export const  EditApplication =()=>{
         company:"",
         role:"",
         dateApplied:"",
-        status:""
+        status:"applied",
+        notes: ""
     })
 
     const {id }= useParams();
@@ -57,9 +58,8 @@ export const  EditApplication =()=>{
          //redirect to applications
          toast.success("Application updated successfully!")
          setTimeout(()=>{       
-
         navigate('/applications')   
-         },7000)
+         },5000)
 
     }
     return (<div className="p-6 max-w-xl mx-auto pt-24">
@@ -80,6 +80,16 @@ export const  EditApplication =()=>{
           onChange={handleChange}
           value={formData.role}
             className="w-full border p-2"/>
+
+            <textarea
+            id="notes"
+            name="notes"
+            row={4}
+            value={formData.notes}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2  resize-y focus:outline-none focus:ring-2 focus:ring-blue-500"
+            
+            />
             
           <input
           type="date"
@@ -87,6 +97,7 @@ export const  EditApplication =()=>{
           onChange={handleChange}
           value={formData.dateApplied}
           className="w-full border p-2"/>
+
           <select
           name="status"
           value={formData.status.toLowerCase()}
