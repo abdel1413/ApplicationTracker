@@ -17,6 +17,7 @@ export const Applications =()=>{
      const [filter, setFilter] = useState("all")
      const [search, setSearch] = useState("")
      const [sortOrder, setSortOrder] = useState('latest')
+     const [applicationToDelete, setApplicationToDelete] =useState(null)
    
 
    
@@ -24,7 +25,6 @@ export const Applications =()=>{
      const loadApplications= ()=>{
 
        const data =JSON.parse(localStorage.getItem('applications'))||[]
-   
        setApplications(data)
 
      }
@@ -78,9 +78,7 @@ export const Applications =()=>{
         onClick={()=>{
           //restore the deleted app to the applications list
          // const restoredApplications = [...filtered, deletedApp]
-          
-     
-
+        
            clearTimeout(deleteTimer)
 
           //restore the app deleted earlier from ui        
@@ -198,24 +196,21 @@ export const Applications =()=>{
           <div className="space-y-5 ">
             {!filtered.length &&(
               <div className="text-center py-10 bg-gray-50 border rounded">
-
-                <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
-                <p className="text-gray-500  ">
+                 <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
+                 <p className="text-gray-500  ">
                   try changing your search or filter
                 </p>
-
               </div>
             )}
 
             {filtered.map(app =>{
 
            return ( <div 
-           className="border border-gray-200 p-4 sm:p-5  rounded-lg shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between  gap-4 hover:shadow-lg transition-all  duration-300"
-             key={app.id}>
-                
-                  <div className="space-y-2 mb-2">
+                  className="border border-gray-200 p-4 sm:p-5  rounded-lg shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between  gap-4 hover:shadow-lg transition-all  duration-300"
+                    key={app.id}>   
+                   <div className="space-y-2 mb-2">
                   
-                  <h2 className=" text-lg sm:text-xl font-semibold mb-2">
+                   <h2 className=" text-lg sm:text-xl font-semibold mb-2">
                     {app.jobPostingUrl? (
                       <a href={app.jobPostingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer">
                         {app.company[0].toUpperCase() + app.company.slice(1)}
@@ -259,17 +254,49 @@ export const Applications =()=>{
                              Edit
                       </Link>
 
-                     <button 
-                     className="flex-1 sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-2 hover:bg-red-600 transition"
-                      onClick={()=>{
-                        // const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
-                        // if (confirmDelete) {
-                        //   handleDelete(app.id)
-                        // }
-                        handleDelete(app.id)
-                      }}>
-                       Delete
-                     </button>
+            {applicationToDelete &&(
+              <div className="fixed inset-0 z-50 flex px-4 items-center justify-center bg-black/50">
+                  <div className="w-full max-x-sm rounded-xl bg-white shadow-xl ">
+                        <h2 className="text-xl font-bold text-gray-800">Delete application?</h2>
+                        <p className="mt-2 text-gray-600">
+                          Are you sure you want to delete 
+                          <span className="font-semibold">{applicationToDelete.company}</span>
+                          ?
+                        </p>
+
+                        <div className="mt-6 flex justify-end gap-2" >
+                          <button
+                          type="button"
+                          className="border border border-gray-500 rounded px-4 py-2 hover:bg-gray-100 transition"
+                          onClick={()=>setApplicationToDelete(null)}
+                          >
+                              Cancel
+                          </button>
+
+                        <button type="button"
+                        className="flex-1 sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-2 hover:bg-red-600 transition"
+                          onClick={()=>{
+                            // const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
+                            // if (confirmDelete) {
+                            //   handleDelete(app.id)
+                            // }
+                            handleDelete(applicationToDelete.id)
+                            setApplicationToDelete(null)
+                          
+                          }}>
+                          Delete
+                        </button>
+                        </div>
+                 </div>
+              </div>
+            )}
+            
+                <button
+                type="button"
+                 className="flex-1 sm:flex-none bg-red-500 text-white text-sm text-center px-4 py-2 rounded hover:bg-red-600 transition " 
+                 onClick={setApplicationToDelete(applications)}>
+                  Delete
+                </button>
                  </div>
              </div>
              )
