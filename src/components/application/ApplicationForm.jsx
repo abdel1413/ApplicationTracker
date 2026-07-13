@@ -8,8 +8,12 @@ export const ApplicationForm = ({onSubmit})=>{
    
     const handleSubmit =(e)=>{ 
          e.preventDefault();
-         if(!formData.company || !formData.role || !formData.status ) {
-            alert("please, fill up  all the fields")
+         if(!formData.company.trim() 
+            || !formData.role.trim()
+            || !formData.status 
+            || !formData.dateApplied) {
+            // alert("please, fill up  all the fields")
+             toast.error("Please fill in all required fields.");
         return 
     }
 
@@ -17,6 +21,9 @@ export const ApplicationForm = ({onSubmit})=>{
     const newApplication = {
         id: crypto.randomUUID(),
         ...formData,
+        company:formData.company.trim(),
+        role: formData.role.trim(),
+        notes: formData.notes.trim(),
        createdAt: new Date().toISOString()
     }
 
@@ -38,17 +45,15 @@ export const ApplicationForm = ({onSubmit})=>{
      toast.success("Application saved successfully!")
      setTimeout(()=>{
         navigate('/Applications')
-     },7000)
-
-     setFormData(initialState)
+         },1500)
+        setFormData(initialState)
 
     }
+
     const handleChange =(e)=>{
         const {name, value} = e.target; 
         setFormData((prev) =>( {...prev, [name]: value }))
     }
-
-
 
     return (<>
     {/* {toastMessage && (
@@ -62,7 +67,7 @@ export const ApplicationForm = ({onSubmit})=>{
             <h2 className="text-xl font-bold text-center mb-4">
                 Add Application
             </h2>
-            <label className="block ">Company: </label>
+            <label className="block">Company: </label>
             <input
              type="text" 
             placeholder="company name "
@@ -100,7 +105,18 @@ export const ApplicationForm = ({onSubmit})=>{
             placeholder="date applied" 
             className="w-full px-4 py-2 border rounded "/>
         </div>
-        <div>
+         <div className="mt-0">
+            <label  htmlFor="notes" className="block mt-1"> Notes: </label>
+            <textarea
+            id="notes"
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            rows={4}
+            placeholder="Add any note about this application..."
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"/>
+         </div>
+         <div>
             <label className="block ">Status:</label>
             <select
              name="status" 
@@ -129,10 +145,10 @@ export const ApplicationForm = ({onSubmit})=>{
 
 
 const initialState = {
-
     company: "",
     jobPostingUrl: "",
     role : "",
     dateApplied: "",
-    status : "applied"
+    status : "applied",
+    notes: ""
 }

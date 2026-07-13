@@ -137,9 +137,7 @@ export const ViewApplication = () => {
             </h2>
 
             <p className="text-gray-600 mt-1 whitespace-pre-wrap">
-              {application.notes ||
-                application.note ||
-                "No notes added."}
+              {application.notes || "No notes added."}
             </p>
           </div>
         </div>
