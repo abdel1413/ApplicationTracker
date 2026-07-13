@@ -39,7 +39,7 @@ const total =  applications.length ;
   .slice(0, 5);
   
       return (
-    <div className=" pt-24 ">
+    <div className=" pt-24  px-5 py-3">
 
       <h1 className=" text-3xl  md:text-xl sm:text-lg font-bold mb-6 text-center">
         Dashboard Overview
@@ -51,61 +51,59 @@ const total =  applications.length ;
         Track your applications, interviews, and offers at a glance.
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 flex-wrap justify-center">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 flex-wrap justify-center">
 
-        <div className="p-4 border rounded shadow text-center bg-white rounded-xl border-t-4 border-blue-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer">
+        <div className="p-2 sm:p-3   border rounded shadow text-center bg-white rounded-xl border-t-4 border-blue-500 shadow-md transition-all duration-300 hover: translate-y-1 hover:shadow-lg cursor-pointer mb-2">
 
-          <div className="flex items-center justify-center gap-3 mt-2">
-
-          <FaClipboardList  className="text-blue-500 text-3xl  " />
-          <h2 className="text-gray-500 text-xl">
-            Total</h2>
+          <div className="flex items-center justify-center gap-2 mt-1">
+            <FaClipboardList  className="text-blue-500 text-2xl md:text-3xl " />
+            <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
+              Total</h2>
           </div>
-
-          <p className="text-4xl font-bold mt-1">{total}</p>
+          <p className="text-4xl med:text-3xl sm:text-2xl font-bold mt-1 ">{total}</p>
         </div>
 
-        <div className="p-4 border rounded shadow text-center bg-white rounded-xl border-t-4 border-sky-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer">
-            <div className="flex items-center justify-center gap-3 mt-2">
-
-                <FaPaperPlane className="text-sky-500 text-3xl " />
-                <h2 className="text-gray-500 text-xl">
+        <div className="p-2 sm:p-3  sm:text-sm border rounded shadow text-center bg-white rounded-xl border-t-4 border-sky-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer mb-2">
+           
+            <div className="flex items-center justify-center gap-2 mt-2">
+                <FaPaperPlane className="text-sky-500 text-2xl md:text-3xl" />
+                <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
                   Applied</h2>
             </div>
-            <p className="text-4xl font-bold mt-1">{applied}</p>
+            <p className="text-4xl md:text-3xl sm:text-2xl font-bold mt-0">{applied}</p>
           </div>
 
-        <div className="p-4 border rounded shadow text-center bg-white rounded-xl border-t-4 border-yellow-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer">
-       <div className="flex items-center justify-center gap-3 mt-2">
-
-            <FaHandshake  className="text-yellow-500 text-3xl" />
-          <h2 className="text-gray-500 text-xl">
+        <div className="p-2 sm:p-3  sm:text-sm border rounded
+         shadow text-center bg-white rounded-xl border-t-4 border-yellow-500 
+          p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer mb-2">
+       <div className="flex items-center justify-center gap-2 mt-2">
+            <FaHandshake  className="text-yellow-500 text-2xl md:text-3xl" />
+          <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
             Interview</h2>
        </div>
 
-          <p className="text-4xl font-bold mt-1">{interview}</p>
+          <p className="text-4xl md:text-3xl sm:text-2xl font-bold mt-0 ">{interview}</p>
         </div>
 
-        <div className="p-4 border rounded shadow text-center bg-white rounded-xl border-t-4 border-green-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer">
-       <div className="flex items-center justify-center gap-3 mt-2">
+        <div className="p-2 sm:p-3 sm:text-sm  border rounded shadow text-center bg-white rounded-xl border-t-4 border-green-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer mb-2">
+       <div className="flex items-center justify-center gap-2 mt-2">
 
-            <FaCheckCircle className="text-green-500 text-3xl "  />
-
-          <h2 className="text-gray-500 text-xl">
+            <FaCheckCircle className="text-green-500 text-2xl  "  />
+          <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
             Offer</h2>
        </div>
-          <p className="text-4xl font-bold mt-1">{offered}</p>
+          <p className="text-4xl sm:text-2xl md:text-3xl font-bold mt-0">{offered}</p>
         </div>
 
-        <div className="p-4 border rounded shadow text-center bg-white rounded-xl border-t-4 border-red-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer col-span-2 md:col-span-1">
-           <div className="flex items-center justify-center gap-3 mt-2">
+        <div className="p-2 sm:p-3 border rounded shadow text-center bg-white rounded-xl border-t-4 border-red-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer col-span-2 md:col-span-1">
+           <div className="flex items-center justify-center gap-2 mt-2">
 
-                <FaTimesCircle className="text-red-500 text-3xl" />
+                <FaTimesCircle className="text-red-500 text-2xl md:text-3xl" />
 
-              <h2 className="text-gray-500 text-xl">
+              <h2 className="text-gray-500 text-lg sm:text-xl ">
                 Rejected</h2>
             </div>
-            <p className="text-4xl font-bold mt-1">{rejected}</p>
+            <p className="text-4xl sm:text-2xl md:text-3xl font-bold mt-0 ">{rejected}</p>
         </div>
 
       </div>
