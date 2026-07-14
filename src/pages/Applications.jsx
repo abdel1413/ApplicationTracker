@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt} from "react-icons/fa"
+import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt, FaEdit, FaEye, FaTrash, FaTimes} from "react-icons/fa"
 import dayjs from "dayjs"
  import {toast} from "react-toastify"
 
@@ -212,8 +212,8 @@ export const Applications =()=>{
                   
                    <h2 className=" text-lg sm:text-xl font-semibold mb-2">
                     {app.jobPostingUrl? (
-                      <a href={app.jobPostingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer">
-                        {app.company[0].toUpperCase() + app.company.slice(1)}
+                      <a href={app.jobPostingUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline transition-colors duration-200 cursor-pointer flex items-center justify-center">
+                       <span className="h-9 w-9 text-center rounded-full bg-blue-500  text-white font-bold  mr-2">{app.company[0].toUpperCase()}</span> {app.company[0].toUpperCase() + app.company.slice(1)}
                         <FaExternalLinkAlt className="inline-block ml-1 text-sm text-gray-400" />
                       </a>
                     ) : (
@@ -243,21 +243,24 @@ export const Applications =()=>{
                   {/* <span className="text-xl space-y-2">{app.status}</span> */}
                    </div>
 
-                   <div className="flex gap-3" >
-                    <Link to={ `/applications/${app.id}`}
-                    className="flex-1 sm:flex-none bg-gray-700 text-white text-sm text-center px-4 py-2 rounded hover:bg-gray-800 transition " >
-                    View
-                    </Link>
+                   <div className="flex gap-3 " >
+                      <Link to={ `/applications/${app.id}`}
+                        className=" flex flex-1 sm:flex-none bg-gray-700 text-white text-sm text-center px-4 py-3 rounded hover:bg-gray-800 transition " >
+                        <FaEye className="mr-1 text-xl"/>
+                        View
+                      </Link>
 
                       <Link to={`/edit/${app.id}`}
-                            className="flex-1 sm:flex-none bg-blue-400 text-white text-sm text-center px-4 py-2  rounded hover:bg-blue-600 transition">
+                            className=" flex flex-1 sm:flex-none bg-blue-400 text-white text-sm text-center px-4 py-3  rounded hover:bg-blue-600 transition">
+                            <FaEdit className="mr-1 text-xl"/>
                              Edit
                       </Link>
 
                 <button
                 type="button"
-                 className="flex-1 sm:flex-none bg-red-500 text-white text-sm text-center px-4 py-2 rounded hover:bg-red-600 transition " 
+                 className=" flex flex-1 sm:flex-none bg-red-500 text-white text-sm text-center px-4 py-3 rounded hover:bg-red-600 transition " 
                  onClick={()=>setApplicationToDelete(app)}>
+                  <FaTrash  className="mr-1 text-xl"/>
                   Delete
                 </button>
                  </div>
@@ -276,17 +279,18 @@ export const Applications =()=>{
                            ?
                         </p>
 
-                        <div className="mt-6 flex justify-end gap-2" >
+                        <div className=" flex mt-6 gap-2 justify-end" >
                           <button
                           type="button"
-                          className="border border border-gray-500 rounded px-4 py-2 hover:bg-gray-100 transition"
+                          className="  flex items-center border border border-gray-500 rounded px-4 py-3 hover:bg-gray-100 transition"
                           onClick={()=>setApplicationToDelete(null)}
-                          >
+                          > 
+                          <FaTimes className="mr-1 text-xl "/>
                               Cancel
                           </button>
 
-                        <button type="button"
-                        className="flex-1 sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-2 hover:bg-red-600 transition"
+                          <button type="button"
+                          className="flex items-center sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-3 hover:bg-red-600 transition"
                           onClick={()=>{
                             // const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
                             // if (confirmDelete) {
@@ -296,9 +300,10 @@ export const Applications =()=>{
                             setApplicationToDelete(null)
                           
                           }}>
+                            < FaTrash className="mr-1 text-xl"/>
                           Delete
-                        </button>
-                        </div>
+                         </button>
+                      </div>
                  </div>
               </div>
             )}
