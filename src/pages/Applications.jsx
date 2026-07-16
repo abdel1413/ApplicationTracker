@@ -29,7 +29,7 @@ export const Applications =()=>{
 
      }
 
-   // get all applications once so we use useEffect()and pass [] as dependency
+   
    useEffect(()=>{
     loadApplications()
    },[])
@@ -180,8 +180,7 @@ export const Applications =()=>{
 
   ]);
 
-  //create an escape function that return 
-  //a escape string
+
   const escapeCSVValue = (value)=>{
     const text = String(value??"").replace(/"/g, '""')
   

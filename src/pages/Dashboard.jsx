@@ -23,7 +23,7 @@ export const Dashboard =()=>{
         setApplications(data)
 
     },[])
-console.log(applications)
+  
 const total =  applications.length ; 
 
   const applied = applications.filter(app => app.status === 'applied').length;
