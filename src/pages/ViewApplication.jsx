@@ -38,7 +38,7 @@ export const ViewApplication = () => {
     );
   }
 
-  if (application === null) {
+  if (!application) {
     return (
       <div className="pt-24 px-4 text-center mb-3">
         <h1 className="text-2xl font-bold text-red-500 mb-3">
@@ -49,7 +49,7 @@ export const ViewApplication = () => {
           to="/applications"
           className="text-blue-500 font-medium hover:underline"
         >
-          Back to Applications
+           ←  Back to Applications
         </Link>
       </div>
     );
@@ -158,6 +158,7 @@ export const ViewApplication = () => {
           </Link>
         </div>
       </div>
+     
     </div>
   );
 };

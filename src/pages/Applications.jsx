@@ -196,7 +196,7 @@ export const Applications =()=>{
           <div className="space-y-5 ">
             {!filtered.length &&(
               <div className="text-center py-10 bg-gray-50 border rounded">
-                 <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
+                 <h2 className="text-2xl font-semibold text-red-400">No applications notfound</h2>
                  <p className="text-gray-500  ">
                   try changing your search or filter
                 </p>
@@ -275,7 +275,7 @@ export const Applications =()=>{
                         <h2 className="text-xl font-bold text-gray-800">Delete application?</h2>
                         <p className="mt-2 text-gray-600">
                           Are you sure you want to delete  
-                          <span className="font-semibold ml-1 mr-1">{applicationToDelete.company}</span>
+                          <span className="font-semibold ml-1 mr-1">{applicationToDelete.company.charAt(0).toUpperCase()+ applicationToDelete.company.slice(1)}</span>
                            ?
                         </p>
 
