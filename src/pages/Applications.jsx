@@ -192,11 +192,11 @@ export const Applications =()=>{
   const cvsContent = [
     headers.map(escapeCSVValue).join(","),
     ...rows.map(row => 
-      row.map(exportToCSV).join(",")
+      row.map(escapeCSVValue).join(",")
     ),
   ].join("\n")
 
-  const blob = new Blob([exportToCSV],{type:"text/csv;charset=utf-8;"});
+  const blob = new Blob([cvsContent],{type:"text/csv;charset=utf-8;"});
   const url = URL.createObjectURL(blob);
   const  link = document.createElement('a')
   link.href = url;
@@ -215,6 +215,7 @@ export const Applications =()=>{
     return (
     <div className="pt-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
+
        <h1 className="text-2xl font-bold text-center flex items-center justify-center gap-2 mb-4 md:mb-0">
               Applications <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm">
                 {filtered.length}
@@ -253,9 +254,14 @@ export const Applications =()=>{
                   <option value="az"> Company A-Z</option>
                   <option value="za">Company Z-A</option>
                 </select>
-              
+              <button
+              onClick={exportToCSV}
+              className="w-full sm:w-auto  bg-green-400 text-white px-4 py-2 rounded  hover:bg-green-600 transition cursor-pointer whitespace-nowrap"
+              >Export CSV</button>
            </div>
            
+
+
           <div className="space-y-5 ">
             {!filtered.length &&(
               <div className="text-center py-10 bg-gray-50 border rounded">
@@ -331,6 +337,7 @@ export const Applications =()=>{
              )
             })}
           </div>
+
        </div>
         {applicationToDelete &&(
               <div className="fixed inset-0 z-50 flex px-4 items-center justify-center bg-black/50">
