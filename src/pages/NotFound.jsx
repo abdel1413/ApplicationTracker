@@ -6,7 +6,9 @@ export const  NotFound =()=>{
         <h2 className="text-gray-800 font-semibold mb-2">Page not found</h2>
         <p className="text-gray-500 mb-6 ">the page you're looking for doesn't exist</p>
 
-        <Link className="text-blue-500 px-4 py-2 text-white rounded  hover:text-blue-600 transition">Back to Dashboard</Link>
+        <Link 
+        to="/"
+         className="text-blue-500 px-4 py-2  rounded  hover:text-blue-600 transition  hover:border rounded-full transition cursor-pointer">Back to Dashboard</Link>
         </div>
         )
 

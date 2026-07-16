@@ -147,6 +147,69 @@ export const Applications =()=>{
 
      
     )
+
+    //export the content or values of application as csv 
+    //so customer can download and read on excel google sheet or apple numbers
+    const exportToCSV =()=>{
+      const data = JSON.parse(localStorage.getItem('applications'))||[]
+
+      if(!data.length){
+        toast('No application available to export ')
+        return 
+      }
+
+      //create headers
+       const headers = [
+    "Company",
+    "Role",
+    "Status",
+    "Date Applied",
+    "Job Posting URL",
+    "Notes",
+  ];
+
+
+  //create rows
+  const rows = data.map(app =>[
+    app.company,
+    app.role,
+    app.status,
+    app.dateApplied,
+    app.jobPostingUrl || "",
+    app.notes||"",
+
+  ]);
+
+  //create an escape function that return 
+  //a escape string
+  const escapeCSVValue = (value)=>{
+    const text = String(value??"").replace(/"/g, '""')
+    console.log("text", text)
+    return `"${text}"`
+  }
+
+  // create a content
+  const cvsContent = [
+    headers.map(escapeCSVValue).join(","),
+    ...rows.map(row => 
+      row.map(exportToCSV).join(",")
+    ),
+  ].join("\n")
+
+  const blob = new Blob([exportToCSV],{type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const  link = document.createElement('a')
+  link.href = url;
+  link.download = 'job-applications.csv'
+
+  document.body.appendChild(link)
+  link.click();
+  document.body.removeChild(link)
+
+  URL.revokeObjectURL(url)
+  toast.success('Applications exported successful!')
+  
+    }
    
     
     return (
