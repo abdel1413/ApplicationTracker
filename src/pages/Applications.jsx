@@ -114,7 +114,7 @@ export const Applications =()=>{
     //  ? applications
     //  : applications.filter(app => app.status.toLowerCase() === filter)
 
-    //combine  select option with search input result
+   
    
 
 
@@ -158,7 +158,7 @@ export const Applications =()=>{
         return 
       }
 
-      //create headers
+     
        const headers = [
     "Company",
     "Role",
@@ -169,7 +169,7 @@ export const Applications =()=>{
   ];
 
 
-  //create rows
+  
   const rows = data.map(app =>[
     app.company,
     app.role,
@@ -184,11 +184,11 @@ export const Applications =()=>{
   //a escape string
   const escapeCSVValue = (value)=>{
     const text = String(value??"").replace(/"/g, '""')
-    console.log("text", text)
+  
     return `"${text}"`
   }
 
-  // create a content
+
   const cvsContent = [
     headers.map(escapeCSVValue).join(","),
     ...rows.map(row => 
@@ -200,7 +200,8 @@ export const Applications =()=>{
   const url = URL.createObjectURL(blob);
   const  link = document.createElement('a')
   link.href = url;
-  link.download = 'job-applications.csv'
+  const today = new Date().toISOString().split("T")[0]
+  link.download = `job-applications-${today}.csv`
 
   document.body.appendChild(link)
   link.click();
@@ -309,7 +310,7 @@ export const Applications =()=>{
                       : "bg-red-100 text-red-700 mb-2"
                     } `}>{app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                     </span>
-                  {/* <span className="text-xl space-y-2">{app.status}</span> */}
+        
                    </div>
 
                    <div className="flex gap-3 " >
