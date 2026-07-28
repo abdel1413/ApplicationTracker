@@ -1,4 +1,3 @@
 export const generateId =()=>{
-    return (<>
-    id generator </>)
+    return crypto.randomUUID()
 }

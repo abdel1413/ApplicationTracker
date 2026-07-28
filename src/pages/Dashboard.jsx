@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import {FaCalendarAlt} from "react-icons/fa"
 import { formatDate } from "../utils/formatDate";
+import { calculateStatistics } from "../utils/calculateStatistics";
 
 export const Dashboard =()=>{
     //get all the applications
@@ -25,15 +26,17 @@ export const Dashboard =()=>{
 
     },[])
   
-const total =  applications.length ; 
+// const total =  applications.length ; 
 
-  const applied = applications.filter(app => app.status === 'applied').length;
+//   const applied = applications.filter(app => app.status === 'applied').length;
 
-  const offered = applications.filter(app => app.status === 'offer').length;
+//   const offered = applications.filter(app => app.status === 'offer').length;
 
-  const rejected = applications.filter(app => app.status === 'rejected').length;
+//   const rejected = applications.filter(app => app.status === 'rejected').length;
   
-  const interview  = applications.filter(app => app.status === 'interview').length;
+//   const interview  = applications.filter(app => app.status === 'interview').length;
+
+   const statistics = calculateStatistics(applications)
 
   const recentApplications =[ ...applications]
   .sort((a, b) => new Date(b.dateApplied) - new Date(a.dateApplied))
@@ -61,7 +64,7 @@ const total =  applications.length ;
             <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
               Total</h2>
           </div>
-          <p className="text-4xl med:text-3xl sm:text-2xl font-bold mt-1 ">{total}</p>
+          <p className="text-4xl med:text-3xl sm:text-2xl font-bold mt-1 ">{statistics.total}</p>
         </div>
 
         <div className="p-2 sm:p-3  sm:text-sm border rounded shadow text-center bg-white rounded-xl border-t-4 border-sky-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer mb-2">
@@ -71,7 +74,7 @@ const total =  applications.length ;
                 <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
                   Applied</h2>
             </div>
-            <p className="text-4xl md:text-3xl sm:text-2xl font-bold mt-0">{applied}</p>
+            <p className="text-4xl md:text-3xl sm:text-2xl font-bold mt-0">{statistics.applied}</p>
           </div>
 
         <div className="p-2 sm:p-3  sm:text-sm border rounded
@@ -83,7 +86,7 @@ const total =  applications.length ;
             Interview</h2>
        </div>
 
-          <p className="text-4xl md:text-3xl sm:text-2xl font-bold mt-0 ">{interview}</p>
+          <p className="text-4xl md:text-3xl sm:text-2xl font-bold mt-0 ">{statistics.interview}</p>
         </div>
 
         <div className="p-2 sm:p-3 sm:text-sm  border rounded shadow text-center bg-white rounded-xl border-t-4 border-green-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer mb-2">
@@ -93,7 +96,7 @@ const total =  applications.length ;
           <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
             Offer</h2>
        </div>
-          <p className="text-4xl sm:text-2xl md:text-3xl font-bold mt-0">{offered}</p>
+          <p className="text-4xl sm:text-2xl md:text-3xl font-bold mt-0">{statistics.offered}</p>
         </div>
 
         <div className="p-2 sm:p-3 border rounded shadow text-center bg-white rounded-xl border-t-4 border-red-500  p-4 shadow-md transition-all duration-300   hover: translate-y-1 hover:shadow-lg cursor-pointer col-span-2 md:col-span-1">
@@ -104,7 +107,7 @@ const total =  applications.length ;
               <h2 className="text-gray-500 text-lg sm:text-xl ">
                 Rejected</h2>
             </div>
-            <p className="text-4xl sm:text-2xl md:text-3xl font-bold mt-0 ">{rejected}</p>
+            <p className="text-4xl sm:text-2xl md:text-3xl font-bold mt-0 ">{statistics.rejected}</p>
         </div>
 
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify"
+import { generateId } from "../../utils/generateId"
 export const ApplicationForm = ({onSubmit})=>{
     const [formData, setFormData] = useState(initialState)
     // const [toastMessage, setToastMessage] = useState(false) 
@@ -19,7 +20,7 @@ export const ApplicationForm = ({onSubmit})=>{
 
     //create a new application 
     const newApplication = {
-        id: crypto.randomUUID(),
+        id: generateId(),
         ...formData,
         company:formData.company.trim(),
         role: formData.role.trim(),
