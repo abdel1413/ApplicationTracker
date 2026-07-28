@@ -6,6 +6,7 @@ import {
   FaExchangeAlt,
 } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
+import { formatDate } from "../utils/formatDate";
 
 export const ViewApplication = () => {
   const { id } = useParams();
@@ -107,9 +108,10 @@ export const ViewApplication = () => {
 
             <p className="flex items-center gap-2 mt-1 text-gray-600">
               <FaCalendar />
-              {dayjs(application.dateApplied).format(
+              {/* {dayjs(application.dateApplied).format(
                 "MMMM D, YYYY"
-              )}
+              )} */}
+              {formatDate(application.dateApplied)}
             </p>
           </div>
 

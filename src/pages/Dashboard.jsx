@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {FaCalendarAlt} from "react-icons/fa"
+import { formatDate } from "../utils/formatDate";
 
 export const Dashboard =()=>{
     //get all the applications
@@ -139,7 +140,10 @@ tr ">
                       : 'bg-red-500 '} `}> </span>
                       <span className="text-gray-500 text-lg font-medium "> {app.status[0].toUpperCase() + app.status.slice(1)}</span>
                   </div>
-                  <p className="text-gray-500 text-sm "><FaCalendarAlt className="inline-block mr-2 text-lg"/> {dayjs(app.dateApplied).format("MMMM D, YYYY")}</p>
+                  <p className="text-gray-500 text-sm "><FaCalendarAlt className="inline-block mr-2 text-lg"/> 
+                  {/* {dayjs(app.dateApplied).format("MMMM D, YYYY")} */}
+                  {formatDate(app.dateApplied)}
+                  </p>
               </div>
             
               </Link>

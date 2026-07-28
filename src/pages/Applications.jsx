@@ -9,6 +9,7 @@ import { Link } from "react-router-dom"
 import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt, FaEdit, FaEye, FaTrash, FaTimes} from "react-icons/fa"
 import dayjs from "dayjs"
  import {toast} from "react-toastify"
+import { formatDate } from "../utils/formatDate"
 
 
 
@@ -296,7 +297,8 @@ export const Applications =()=>{
 
                   <p className="flex items-center gap-2 mb-2 text-gray-600">
                     <FaCalendarAlt /> 
-                    {dayjs(app.dateApplied).format("MMMM D, YYYY")}
+                    {/* {dayjs(app.dateApplied).format("MMMM D, YYYY")} */}
+                    {formatDate(app.dateApplied)}
                   </p>
                   <span
                     className={`px-3 py-1 rounded-full inline-block text-sm font-medium mb-2 ${
