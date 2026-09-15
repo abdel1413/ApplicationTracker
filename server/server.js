@@ -44,10 +44,7 @@ app.post("/api/applications", (req, res) => {
         createdAt: req.body.createdAt
     };
 
-    applications.push(newApplication);
-
-    res.status(201).json(newApplication);
-
+   
     applications.push(newApplication);
     res.status(201).json(newApplication);
 });

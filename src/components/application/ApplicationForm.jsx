@@ -2,12 +2,14 @@ import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify"
 import { generateId } from "../../utils/generateId"
+
+
 export const ApplicationForm = ({onSubmit})=>{
     const [formData, setFormData] = useState(initialState)
     // const [toastMessage, setToastMessage] = useState(false) 
     const navigate = useNavigate()
    
-    const handleSubmit =(e)=>{ 
+    const handleSubmit = async (e)=>{ 
          e.preventDefault();
          if(!formData.company.trim() 
             || !formData.role.trim()
@@ -30,7 +32,7 @@ export const ApplicationForm = ({onSubmit})=>{
 
       //pass new app to prop 
       
-     onSubmit(newApplication)
+   await onSubmit(newApplication)
 
 //       setToastMessage(true)
 //       setTimeout(()=>{
@@ -51,7 +53,7 @@ export const ApplicationForm = ({onSubmit})=>{
 
     }
 
-    const handleChange =(e)=>{
+    const handleChange = async (e)=>{
         const {name, value} = e.target; 
         setFormData((prev) =>( {...prev, [name]: value }))
     }
@@ -63,7 +65,7 @@ export const ApplicationForm = ({onSubmit})=>{
         </div>
     )  } */}
     <form className="max-w-xl mx-auto bg-white shadow shadow-lg   p-6 space-y-5 mt-20 bg-gray-100  "
-    onSubmit={handleSubmit}>
+    onSubmit={ handleSubmit}>
         <div className="space-y-2">
             <h2 className="text-xl font-bold text-center mb-4">
                 Add Application

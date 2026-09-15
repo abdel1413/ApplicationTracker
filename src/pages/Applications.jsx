@@ -10,6 +10,7 @@ import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt, FaEdit, FaEye, FaTrash, Fa
 import dayjs from "dayjs"
  import {toast} from "react-toastify"
 import { formatDate } from "../utils/formatDate"
+import axios from 'axios'
 
 
 
@@ -23,11 +24,9 @@ export const Applications =()=>{
 
    
 
-     const loadApplications= ()=>{
-
-       const data =JSON.parse(localStorage.getItem('applications'))||[]
-       setApplications(data)
-
+     const loadApplications=  async ()=>{
+       const response = await axios.get('http://localhost:5001/api/applications');
+       setApplications(response.data);
      }
 
    

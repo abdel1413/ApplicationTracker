@@ -1,6 +1,6 @@
 
 import { ApplicationForm } from "../components/application/ApplicationForm"
-import { useState } from "react"
+import axios from 'axios'
 export const AddApplication = ()=>{
    
 
@@ -10,11 +10,18 @@ export const AddApplication = ()=>{
    // if there are any, append the new app to them
    // if not return [] and  save new app to storage
 
-   const saveApplication =(data)=>{
-      const existingApplications =JSON.parse(localStorage.getItem("applications"))|| []
+   // const saveApplication =(data)=>{
+   //    const existingApplications =JSON.parse(localStorage.getItem("applications"))|| []
 
-      localStorage.setItem('applications', JSON.stringify([...existingApplications, data]))
+   //    localStorage.setItem('applications', JSON.stringify([...existingApplications, data]))
 
+   // }
+   
+   const saveApplication = async (data)=>{
+      
+      const response = await axios.post('http://localhost:5001/api/applications', data);
+      
+      console.log(response.data);
    }
 
     
