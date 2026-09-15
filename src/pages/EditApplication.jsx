@@ -22,17 +22,14 @@ export const  EditApplication =()=>{
 
     const {id }= useParams();
     const navigate = useNavigate();
-  
     // pull all apps form storage based on the [id];
     useEffect(()=>{
         const data = JSON.parse(localStorage.getItem("applications"))||[];
-     
         const found = data.find(app => app.id === id)
         if(found){
             setFormData(found)
         }
     },[id])
-   
 
     const handleChange =(e)=>{
         const {name, value} = e.target;
@@ -40,18 +37,20 @@ export const  EditApplication =()=>{
             ...prev,
        [name] : value
         }))
-
     }
     //pull data from storage
     // update the  app that matches param (id) 
-    // if found go to edit page with current data otherwise existing data 
-    //from storage
+
+   // “If the ID matches an application, replace 
+   //that application with the updated form data. Otherwise, 
+   // return the existing application unchanged.”
+   
     // save news tate  back to storage
     //during the update we need to preserve id so we don't loose it
     const handleSubmit = (e)=>{
         e.preventDefault();
         const data = JSON.parse(localStorage.getItem('applications'))||[];
-        const updated = data.map(app => app.id ===id? {...formData,id}: app);
+        const updated = data.map(app => app.id ===id ? {...formData,id}: app);
 
          localStorage.setItem('applications',JSON.stringify(updated))
        
@@ -59,7 +58,7 @@ export const  EditApplication =()=>{
          toast.success("Application updated successfully!")
          setTimeout(()=>{       
         navigate('/applications')   
-         },5000)
+         },3000)
 
     }
     return (<div className="p-6 max-w-xl mx-auto pt-24">

@@ -8,7 +8,8 @@ export const  NotFound =()=>{
 
         <Link 
         to="/"
-         className="text-blue-500 px-4 py-2  rounded  hover:text-blue-600 transition  hover:border rounded-full transition cursor-pointer">Back to Dashboard</Link>
+         className="text-blue-500 px-4 py-2  rounded  hover:text-blue-600 transition  hover:border rounded-full transition cursor-pointer">
+            Back to Dashboard</Link>
         </div>
         )
 

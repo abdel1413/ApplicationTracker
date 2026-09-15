@@ -6,7 +6,7 @@ export const calculateStatistics =(applications)=>{
         if(status && status in statistics){
             statistics[status] +=1
         }
-        console.log(statistics)
+      
         return statistics
     },{
         total: 0,
