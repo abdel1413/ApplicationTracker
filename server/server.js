@@ -32,12 +32,22 @@ app.get("/api/applications", (req, res) => {
 
 
 app.post("/api/applications", (req, res) => {
+
     const newApplication = {
-        "id": applications.length + 1,
-        "company": req.body.company,
-        "role": req.body.role,
-        "status": req.body.status
+        id: req.body.id,
+        company: req.body.company,
+        jobPostingUrl: req.body.jobPostingUrl,
+        role: req.body.role,
+        dateApplied: req.body.dateApplied,
+        status: req.body.status,
+        notes: req.body.notes,
+        createdAt: req.body.createdAt
     };
+
+    applications.push(newApplication);
+
+    res.status(201).json(newApplication);
+
     applications.push(newApplication);
     res.status(201).json(newApplication);
 });
