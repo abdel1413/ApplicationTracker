@@ -24,16 +24,25 @@ const applications = [
 ]
 
 
-app.get("/test-db", async (req, res) => {
-    const  result = await pool.query('SELECT * FROM applications');
-    res.json(result.rows);
-})
+
 app.get('/', (req, res) => {
     res.send('Job application tracker API is running !');
 });
 
-app.get("/api/applications", (req, res) => {
-    res.json(applications);
+
+
+// app.get("/test-db", async (req, res) => {
+//     const  result = await pool.query('SELECT * FROM applications');
+//     res.json(result.rows);
+// })
+
+// app.get("/api/applications", (req, res) => {
+//     res.json(applications);
+// });
+
+app.get("/api/applications", async (req, res) => {
+    const  result = await pool.query('SELECT * FROM applications');
+    res.json(result.rows);
 });
 
 
