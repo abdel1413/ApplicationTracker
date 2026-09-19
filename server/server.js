@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const pool = require("./db")
 
 const app = express()   
 app.use(cors())
@@ -22,6 +23,11 @@ const applications = [
     }
 ]
 
+
+app.get("/test-db", async (req, res) => {
+    const  result = await pool.query('SELECT * FROM applications');
+    res.json(result.rows);
+})
 app.get('/', (req, res) => {
     res.send('Job application tracker API is running !');
 });
