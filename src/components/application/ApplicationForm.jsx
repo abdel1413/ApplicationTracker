@@ -30,8 +30,8 @@ export const ApplicationForm = ({onSubmit})=>{
        createdAt: new Date().toISOString()
     }
 
-      //pass new app to prop 
-      
+  
+  
    await onSubmit(newApplication)
 
 //       setToastMessage(true)

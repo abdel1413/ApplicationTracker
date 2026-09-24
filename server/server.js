@@ -46,7 +46,7 @@ app.get("/api/applications", async (req, res) => {
 });
 
 
-app.post("/api/applications", (req, res) => {
+app.post("/api/applications",  async (req, res) => {
 
     const newApplication = {
         id: req.body.id,
@@ -59,9 +59,23 @@ app.post("/api/applications", (req, res) => {
         createdAt: req.body.createdAt
     };
 
-   
-    applications.push(newApplication);
-    res.status(201).json(newApplication);
+   const result =  await pool.query(
+    'INSERT INTO applications(company, job_posting_url, role, date_applied, status, notes) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+    [
+        newApplication.company, 
+        newApplication.jobPostingUrl,
+         newApplication.role,
+          newApplication.dateApplied, 
+        newApplication.status,
+        newApplication.notes,
+]
+     
+   )
+
+
+    // applications.push(newApplication);
+    // res.status(201).json(newApplication);
+    res.status(201).json(result.rows[0]);
 });
 
 const PORT = 5001;
