@@ -8,20 +8,20 @@ app.use(express.json()); //When JSON data arrives in a request, parse it so I ca
 
 
 
-const applications = [
-    {
-    "id": 1,
-    "company": "goggle",
-    "role": "Software Engineer",
-    "status": "applied"
+// const applications = [
+//     {
+//     "id": 1,
+//     "company": "goggle",
+//     "role": "Software Engineer",
+//     "status": "applied"
 
-    },{
-        "id": 2,
-        "company": "amazon",
-        "role": "Data Scientist",
-        "status": "interviewing"    
-    }
-]
+//     },{
+//         "id": 2,
+//         "company": "amazon",
+//         "role": "Data Scientist",
+//         "status": "interviewing"    
+//     }
+// ]
 
 
 
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 // });
 
 app.get("/api/applications", async (req, res) => {
-    const  result = await pool.query('SELECT * FROM applications');
+    const  result = await pool.query('SELECT id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt" FROM applications');
     res.json(result.rows);
 });
 
@@ -49,18 +49,18 @@ app.get("/api/applications", async (req, res) => {
 app.post("/api/applications",  async (req, res) => {
 
     const newApplication = {
-        id: req.body.id,
+        // id: req.body.id,
         company: req.body.company,
         jobPostingUrl: req.body.jobPostingUrl,
         role: req.body.role,
         dateApplied: req.body.dateApplied,
         status: req.body.status,
         notes: req.body.notes,
-        createdAt: req.body.createdAt
+        // createdAt: req.body.createdAt
     };
 
    const result =  await pool.query(
-    'INSERT INTO applications(company, job_posting_url, role, date_applied, status, notes) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+    'INSERT INTO applications(company, job_posting_url, role, date_applied, status, notes) VALUES($1, $2, $3, $4, $5, $6) RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
     [
         newApplication.company, 
         newApplication.jobPostingUrl,

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify"
-import { generateId } from "../../utils/generateId"
+// import { generateId } from "../../utils/generateId"
 
 
 export const ApplicationForm = ({onSubmit})=>{
@@ -22,12 +22,12 @@ export const ApplicationForm = ({onSubmit})=>{
 
     //create a new application 
     const newApplication = {
-        id: generateId(),
+        // id: generateId(),
         ...formData,
         company:formData.company.trim(),
         role: formData.role.trim(),
         notes: formData.notes.trim(),
-       createdAt: new Date().toISOString()
+    //    createdAt: new Date().toISOString()
     }
 
   
