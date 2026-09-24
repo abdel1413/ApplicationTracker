@@ -47,8 +47,8 @@ app.get("/api/applications", async (req, res) => {
 
 
 app.post("/api/applications",  async (req, res) => {
-
-    const newApplication = {
+    try{
+  const newApplication = {
         // id: req.body.id,
         company: req.body.company,
         jobPostingUrl: req.body.jobPostingUrl,
@@ -70,12 +70,21 @@ app.post("/api/applications",  async (req, res) => {
         newApplication.notes,
 ]
      
+
    )
-
-
     // applications.push(newApplication);
     // res.status(201).json(newApplication);
     res.status(201).json(result.rows[0]);
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json({ error: 'Failed to create application' })
+    }
+
+  
+
+
+   
 });
 
 const PORT = 5001;
