@@ -11,6 +11,7 @@ import dayjs from "dayjs"
  import {toast} from "react-toastify"
 import { formatDate } from "../utils/formatDate"
 import axios from 'axios'
+import { set } from "mongoose"
 
 
 
@@ -40,7 +41,8 @@ export const Applications =()=>{
    const handleDelete =(id)=>{
 
     // 1 for permanent deletion, get data from storage
-    const data =JSON.parse(localStorage.getItem("applications"))||[]
+    // const data =JSON.parse(localStorage.getItem("applications"))||[]
+    const data = applications
     // 2 create a variable to hold the  app to be deleted  from localstorage
       const deletedApp = data.find(item => item.id === id)
 
@@ -63,8 +65,16 @@ export const Applications =()=>{
    setApplications(filteredApp)
 
    //wait to 5 sec to delete it permanently from storage
-  const deleteTimer =  setTimeout(() => {
-     localStorage.setItem('applications', JSON.stringify(filteredApp))
+  const deleteTimer =  setTimeout(async () => {
+    //  localStorage.setItem('applications', JSON.stringify(filteredApp))
+    try {
+      
+      await axios.delete(`http://localhost:5001/api/applications/${id}`)
+    } catch (error) {
+      console.log(error)
+      setApplications(data)
+      toast.error("Failed to delete application")
+    }
    }, 5000);
 
      toast(({closeToast})=>(
@@ -85,7 +95,7 @@ export const Applications =()=>{
 
      
          //restore the storage too in case the timer ran
-         localStorage.setItem("applications", JSON.stringify(data))
+        //  localStorage.setItem("applications", JSON.stringify(data))
 
           closeToast()
           // setTimeout(() => {
