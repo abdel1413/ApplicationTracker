@@ -41,13 +41,20 @@ app.get('/', (req, res) => {
 // });
 
 app.get("/api/applications", async (req, res) => {
-    const  result = await pool.query('SELECT id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt" FROM applications');
-    res.json(result.rows);
+    try {
+        const  result = await pool.query('SELECT id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt" FROM applications');
+        res.status(200).json(result.rows);
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch applications' });
+    }
 });
 
 
 app.post("/api/applications",  async (req, res) => {
     try{
+        // 1. Get data from req.body
   const newApplication = {
         // id: req.body.id,
         company: req.body.company,
@@ -59,6 +66,7 @@ app.post("/api/applications",  async (req, res) => {
         // createdAt: req.body.createdAt
     };
 
+ // 2. INSERT into PostgreSQL
    const result =  await pool.query(
     'INSERT INTO applications(company, job_posting_url, role, date_applied, status, notes) VALUES($1, $2, $3, $4, $5, $6) RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
     [
@@ -72,6 +80,8 @@ app.post("/api/applications",  async (req, res) => {
      
 
    )
+     // 3. Send successful response
+
     // applications.push(newApplication);
     // res.status(201).json(newApplication);
     res.status(201).json(result.rows[0]);
