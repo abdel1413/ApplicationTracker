@@ -30,9 +30,19 @@ export const ApplicationForm = ({onSubmit})=>{
     //    createdAt: new Date().toISOString()
     }
 
+   try {
+    await onSubmit(newApplication)
+      toast.success("Application saved successfully!")
+      setFormData(initialState)
+     setTimeout(()=>{
+        navigate('/Applications')
+         },1500)
+   } catch (error) {
+    console.log(error)
+    toast.error("Failed to save application.")
+   }
   
-  
-   await onSubmit(newApplication)
+   
 
 //       setToastMessage(true)
 //       setTimeout(()=>{
@@ -45,11 +55,7 @@ export const ApplicationForm = ({onSubmit})=>{
 //       }  ,8000)
 
      
-     toast.success("Application saved successfully!")
-     setTimeout(()=>{
-        navigate('/Applications')
-         },1500)
-        setFormData(initialState)
+   
 
     }
 

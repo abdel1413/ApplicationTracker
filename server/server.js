@@ -97,6 +97,15 @@ app.post("/api/applications",  async (req, res) => {
    
 });
 
+
+app.delete("/api/applications/:id", async (req, res) => {
+    const {id} = req.params; 
+    console.log(id)
+    res.json({message: "delete route reached",
+        id: id
+    })
+})
+
 const PORT = 5001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
