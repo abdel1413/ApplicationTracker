@@ -33,10 +33,20 @@ export const  EditApplication =()=>{
     //         setFormData(found)
     //     }
     // },[id])
-    useEffect(async ()=>{
-        let result =   await axios.get(`http://localhost:5001/api/applications/${id}`)
-        setFormData(result.data)
 
+    useEffect( ()=>{
+        const loadSpecificApplication = async () => {
+            try {
+                const result = await axios.get(`http://localhost:5001/api/applications/${id}`);
+                setFormData({...result.data,
+                     dateApplied: result.data.dateApplied.split("T")[0]
+                    });
+
+            } catch (error) {
+                console.error("Error fetching application:", error);
+            }
+        };
+        loadSpecificApplication();
     },[id])
 
     const handleChange =(e)=>{

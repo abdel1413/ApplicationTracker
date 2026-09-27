@@ -121,6 +121,7 @@ app.delete("/api/applications/:id", async (req, res) => {
  
 });
 
+//edit app first get the specific application
 app.get("/api/applications/:id", async (req, res) => {
 
     const {id} = req.params; 
@@ -139,6 +140,28 @@ app.get("/api/applications/:id", async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch application' });
      }  
 })
+
+//2nd route - update application
+app.put("/api/applications/:id", async (req, res) => {
+    const {id} = req.params;
+
+    const {company, jobPostingUrl, role, dateApplied, status, notes} = req.body;
+    try{
+    
+        const result = await pool.query('UPDATE applications SET company=$1, job_posting_url=$2, role=$3, date_applied=$4, status=$5, notes=$6 WHERE id=$7 RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
+            [company, jobPostingUrl, role, dateApplied, status, notes, id]
+        )
+        if(result.rows.length === 0) {
+            return res.status(404).json({ error: 'Application not found' });
+        }
+        res.status(200).json(result.rows[0]);
+
+    }catch(error){
+     console.log(error)
+     res.status(500).json({ error: 'Failed to update application' });
+    }
+})
+
 
 const PORT = 5001;
 app.listen(PORT, () => {
