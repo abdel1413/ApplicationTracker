@@ -65,18 +65,45 @@ export const  EditApplication =()=>{
    
     // save news tate  back to storage
     //during the update we need to preserve id so we don't loose it
-    const handleSubmit = (e)=>{
-        e.preventDefault();
-        const data = JSON.parse(localStorage.getItem('applications'))||[];
-        const updated = data.map(app => app.id ===id ? {...formData,id}: app);
+    // const handleSubmit = (e)=>{
+    //     e.preventDefault();
+    //     const data = JSON.parse(localStorage.getItem('applications'))||[];
+    //     const updated = data.map(app => app.id ===id ? {...formData,id}: app);
 
-         localStorage.setItem('applications',JSON.stringify(updated))
+    //      localStorage.setItem('applications',JSON.stringify(updated))
        
-         //redirect to applications
-         toast.success("Application updated successfully!")
-         setTimeout(()=>{       
+    //      //redirect to applications
+    //      toast.success("Application updated successfully!")
+    //      setTimeout(()=>{       
+    //     navigate('/applications')   
+    //      },3000)
+
+    // }
+
+    //using axios to update the application
+      const handleSubmit = async (e)=>{
+        e.preventDefault();
+
+        // const data = JSON.parse(localStorage.getItem('applications'))||[];
+       
+        // const updated = data.map(app => app.id ===id ? {...formData,id}: app);
+
+        //  localStorage.setItem('applications',JSON.stringify(updated))
+       
+        try {
+            const result = await axios.put(`http://localhost:5001/api/applications/${id}`, formData);
+            toast.success("Application updated successfully!")
+          //redirect to applications
+            setTimeout(()=>{       
         navigate('/applications')   
          },3000)
+        }catch(error){
+            console.log(error)
+            toast.error("Failed to update application!")
+
+        }
+       
+        
 
     }
     return (<div className="p-6 max-w-xl mx-auto pt-24">
