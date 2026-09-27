@@ -6,6 +6,8 @@
 // try to find app whose id matches the param
 //if found we display the data  using setFormdata function
 
+import axios from "axios"
+import { set } from "mongoose"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -22,13 +24,19 @@ export const  EditApplication =()=>{
 
     const {id }= useParams();
     const navigate = useNavigate();
-    // pull all apps form storage based on the [id];
-    useEffect(()=>{
-        const data = JSON.parse(localStorage.getItem("applications"))||[];
-        const found = data.find(app => app.id === id)
-        if(found){
-            setFormData(found)
-        }
+
+    // pull any app from storage based on the [id];
+    // useEffect(()=>{
+    //      const data = JSON.parse(localStorage.getItem("applications"))||[];
+    //     const found = data.find(app => app.id === id)
+    //     if(found){
+    //         setFormData(found)
+    //     }
+    // },[id])
+    useEffect(async ()=>{
+        let result =   await axios.get(`http://localhost:5001/api/applications/${id}`)
+        setFormData(result.data)
+
     },[id])
 
     const handleChange =(e)=>{

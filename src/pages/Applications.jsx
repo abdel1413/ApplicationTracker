@@ -11,7 +11,7 @@ import dayjs from "dayjs"
  import {toast} from "react-toastify"
 import { formatDate } from "../utils/formatDate"
 import axios from 'axios'
-import { set } from "mongoose"
+
 
 
 
@@ -88,7 +88,6 @@ export const Applications =()=>{
          // const restoredApplications = [...filtered, deletedApp]
         
            clearTimeout(deleteTimer)
-
           //restore the app deleted earlier from ui        
           // setApplications((prev)=>[...prev, deletedApp])
           setApplications(data)
