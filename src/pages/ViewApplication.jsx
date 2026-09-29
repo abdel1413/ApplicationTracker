@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
+import axios from "axios";
 
 export const ViewApplication = () => {
   const { id } = useParams();
@@ -16,19 +17,34 @@ export const ViewApplication = () => {
   const [application, setApplication] = useState(undefined);
 
   useEffect(() => {
-    try {
-      const data =
-        JSON.parse(localStorage.getItem("applications")) || [];
+    const loadApp = async ()=>{
+      try {
+        const result = await axios.get(`http://localhost:5001/api/applications/${id}`)
+        setApplication(result.data)
+        
+      } catch (error) {
+        console.log(error)
+        setApplication(null)
 
-      const selectedApplication = data.find(
-        app => String(app.id) === String(id)
-      );
-
-      setApplication(selectedApplication || null);
-    } catch (error) {
-      console.error("Unable to load application:", error);
-      setApplication(null);
+      }
     }
+    // try {
+    //   const data =
+    //     JSON.parse(localStorage.getItem("applications")) || [];
+    //     //use axios here to get app by id.
+
+    //  //no need to find specific item by id
+    //   const selectedApplication = data.find(
+    //     app => String(app.id) === String(id)
+    //   );
+      
+    //   //pass result to setApp()
+    //   setApplication(selectedApplication || null);
+    // } catch (error) {
+    //   console.error("Unable to load application:", error);
+    //   setApplication(null);
+    // }
+    loadApp()
   }, [id]);
 
   if (application === undefined) {
