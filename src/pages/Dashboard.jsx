@@ -13,6 +13,8 @@ import {FaCalendarAlt} from "react-icons/fa"
 import { formatDate } from "../utils/formatDate";
 import { calculateStatistics } from "../utils/calculateStatistics";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 
 export const Dashboard =()=>{
     //get all the applications
@@ -24,8 +26,8 @@ export const Dashboard =()=>{
         // const data = JSON.parse(localStorage.getItem('applications'))||[]
         const display = async () => {
           try {
-            const data = await axios.get('http://localhost:5001/api/applications');
-            setApplications(data.data);
+            const response = await axios.get('http://localhost:5001/api/applications');
+            setApplications(response.data);
             
           } catch (error) {
             console.log(error)

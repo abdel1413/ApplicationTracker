@@ -160,8 +160,8 @@ export const Applications =()=>{
     //export the content or values of application as csv 
     //so customer can download and read on excel google sheet or apple numbers
     const exportToCSV =()=>{
-      const data = JSON.parse(localStorage.getItem('applications'))||[]
-
+      // const data = JSON.parse(localStorage.getItem('applications'))||[]
+      const data = applications;
       if(!data.length){
         toast('No application available to export ')
         return 
