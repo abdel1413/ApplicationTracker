@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import {FaCalendarAlt} from "react-icons/fa"
 import { formatDate } from "../utils/formatDate";
 import { calculateStatistics } from "../utils/calculateStatistics";
+import axios from "axios";
 
 export const Dashboard =()=>{
     //get all the applications
@@ -20,9 +21,19 @@ export const Dashboard =()=>{
     const [applications, setApplications] = useState([])
     useEffect(()=>{
 
-        const data = JSON.parse(localStorage.getItem('applications'))||[]
+        // const data = JSON.parse(localStorage.getItem('applications'))||[]
+        const display = async () => {
+          try {
+            const data = await axios.get('http://localhost:5001/api/applications');
+            setApplications(data.data);
+            
+          } catch (error) {
+            console.log(error)
+            toast.error("Failed to load dashboard")
+          }
+        };
 
-        setApplications(data)
+        display();
 
     },[])
   

@@ -180,3 +180,11 @@ export const ViewApplication = () => {
     </div>
   );
 };
+
+/**
+ * OLD                              NEW
+localStorage                     PostgreSQL
+JSON.parse(...)                  axios.get(...)
+data.find(...)                   GET /api/applications/:id
+setApplication(found)            setApplication(result.data)
+ */
