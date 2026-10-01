@@ -11,9 +11,10 @@ import dayjs from "dayjs"
  import {toast} from "react-toastify"
 import { formatDate } from "../utils/formatDate"
 import axios from 'axios'
+import api from "../api/axios"
 
 
-const API_URL = import.meta.env.VITE_API_URL;
+// const API_URL = import.meta.env.VITE_API_URL;
 
 export const Applications =()=>{    
     const [applications, setApplications] = useState([])
@@ -26,7 +27,8 @@ export const Applications =()=>{
    
 
      const loadApplications=  async ()=>{
-       const response = await axios.get(`${API_URL}/api/applications`);
+      //  const response = await axios.get(`${API_URL}/api/applications`);
+       const response = await api.get(`/api/applications`);
        setApplications(response.data);
      }
 
@@ -69,7 +71,7 @@ export const Applications =()=>{
     //  localStorage.setItem('applications', JSON.stringify(filteredApp))
     try {
       
-      await axios.delete(`${API_URL}/api/applications/${id}`)
+      await api.delete(`/api/applications/${id}`)
     } catch (error) {
       console.log(error)
       setApplications(data)
