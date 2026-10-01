@@ -1,4 +1,5 @@
 
+import api from "../api/axios";
 import { ApplicationForm } from "../components/application/ApplicationForm"
 import axios from 'axios'
 export const AddApplication = ()=>{
@@ -17,10 +18,10 @@ export const AddApplication = ()=>{
 
    // }
    
-   const API_URL = import.meta.env.VITE_API_URL;
+   // const API_URL = import.meta.env.VITE_API_URL;
    const saveApplication = async (data)=>{
 
-      const response = await axios.post(`${API_URL}/api/applications`, data);
+      const response = await api.post(`/api/applications`, data);
       
       console.log(response.data);
    }

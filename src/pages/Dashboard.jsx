@@ -13,9 +13,11 @@ import {FaCalendarAlt} from "react-icons/fa"
 import { formatDate } from "../utils/formatDate";
 import { calculateStatistics } from "../utils/calculateStatistics";
 import axios from "axios";
-import { toast } from "react-toastify";
 
-const API_URL = import.meta.env.VITE_API_URL;
+import { toast } from "react-toastify";
+import api from "../api/axios";
+
+//const API_URL = import.meta.env.VITE_API_URL;
 export const Dashboard =()=>{
     //get all the applications
     //filter and display them base on their stats
@@ -26,7 +28,7 @@ export const Dashboard =()=>{
         // const data = JSON.parse(localStorage.getItem('applications'))||[]
         const display = async () => {
           try {
-            const response = await axios.get(`${API_URL}/api/applications`);
+            const response = await api.get(`/api/applications`);
             setApplications(response.data);
             
           } catch (error) {
