@@ -15,7 +15,7 @@ import { calculateStatistics } from "../utils/calculateStatistics";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-
+const API_URL = import.meta.env.VITE_API_URL;
 export const Dashboard =()=>{
     //get all the applications
     //filter and display them base on their stats
@@ -26,7 +26,7 @@ export const Dashboard =()=>{
         // const data = JSON.parse(localStorage.getItem('applications'))||[]
         const display = async () => {
           try {
-            const response = await axios.get('http://localhost:5001/api/applications');
+            const response = await axios.get(`${API_URL}/api/applications`);
             setApplications(response.data);
             
           } catch (error) {

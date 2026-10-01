@@ -7,10 +7,11 @@
 //if found we display the data  using setFormdata function
 
 import axios from "axios"
-import { set } from "mongoose"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
+
+const API_URL = import.meta.env.VITE_API_URL;   
 
 export const  EditApplication =()=>{
 
@@ -37,7 +38,7 @@ export const  EditApplication =()=>{
     useEffect( ()=>{
         const loadSpecificApplication = async () => {
             try {
-                const result = await axios.get(`http://localhost:5001/api/applications/${id}`);
+                const result = await axios.get(`${API_URL}/api/applications/${id}`);
                 setFormData({...result.data,
                      dateApplied: result.data.dateApplied.split("T")[0]
                     });
@@ -91,7 +92,7 @@ export const  EditApplication =()=>{
         //  localStorage.setItem('applications',JSON.stringify(updated))
        
         try {
-            const result = await axios.put(`http://localhost:5001/api/applications/${id}`, formData);
+            const result = await axios.put(`${API_URL}/api/applications/${id}`, formData);
             toast.success("Application updated successfully!")
           //redirect to applications
             setTimeout(()=>{       
@@ -132,7 +133,6 @@ export const  EditApplication =()=>{
             value={formData.notes}
             onChange={handleChange}
             className="w-full border rounded-lg px-3 py-2  resize-y focus:outline-none focus:ring-2 focus:ring-blue-500"
-            
             />
             
           <input
