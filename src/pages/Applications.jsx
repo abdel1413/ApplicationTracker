@@ -13,7 +13,7 @@ import { formatDate } from "../utils/formatDate"
 import axios from 'axios'
 
 
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const Applications =()=>{    
     const [applications, setApplications] = useState([])
@@ -26,7 +26,7 @@ export const Applications =()=>{
    
 
      const loadApplications=  async ()=>{
-       const response = await axios.get('http://localhost:5001/api/applications');
+       const response = await axios.get(`${API_URL}/api/applications`);
        setApplications(response.data);
      }
 
@@ -69,7 +69,7 @@ export const Applications =()=>{
     //  localStorage.setItem('applications', JSON.stringify(filteredApp))
     try {
       
-      await axios.delete(`http://localhost:5001/api/applications/${id}`)
+      await axios.delete(`${API_URL}/api/applications/${id}`)
     } catch (error) {
       console.log(error)
       setApplications(data)
