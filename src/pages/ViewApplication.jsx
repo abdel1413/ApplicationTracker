@@ -9,6 +9,8 @@ import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const ViewApplication = () => {
   const { id } = useParams();
 
@@ -19,7 +21,7 @@ export const ViewApplication = () => {
   useEffect(() => {
     const loadApp = async ()=>{
       try {
-        const result = await axios.get(`http://localhost:5001/api/applications/${id}`)
+        const result = await axios.get(`${API_URL}/api/applications/${id}`)
         setApplication(result.data)
         
       } catch (error) {
