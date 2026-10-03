@@ -66,6 +66,22 @@ app.post("/api/applications",  async (req, res) => {
         // createdAt: req.body.createdAt
     };
 
+//if no company name, do insert to backend
+if(!newApplication.company) {
+    return res.status(400).json({ error: 'Company name is required' });
+}
+ if(!newApplication.role) {
+    return res.status(400).json({ error: 'Role is required' });
+}   
+
+if(!newApplication.dateApplied) {
+    return res.status(400).json({ error: 'Date applied is required' });
+}
+if(!newApplication.status) {
+    return res.status(400).json({ error: 'Status is required' });
+}   
+
+
  // 2. INSERT into PostgreSQL
    const result =  await pool.query(
     'INSERT INTO applications(company, job_posting_url, role, date_applied, status, notes) VALUES($1, $2, $3, $4, $5, $6) RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
