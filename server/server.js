@@ -24,6 +24,53 @@ app.use(express.json()); //When JSON data arrives in a request, parse it so I ca
 // ]
 
 
+//if no company name, do insert to backend
+// if(!newApplication.company || !newApplication.company.trim()) {
+//     return res.status(400).json({ error: 'Company name is required' });
+// }
+//  if(!newApplication.role || !newApplication.role.trim()) {
+//     return res.status(400).json({ error: 'Role is required' });
+// }   
+
+// if(!newApplication.dateApplied || !newApplication.dateApplied.trim()) {
+//     return res.status(400).json({ error: 'Date applied is required' });
+// }
+// //'hello' is a valued str so it passe the above 
+// // test though it is not a valued date. 
+// // we need to validate the date format
+// if(isNaN(Date.parse(newApplication.dateApplied))) {
+//     return res.status(400).json({ error: 'Invalid date format' });
+// }
+
+
+// const allowedStatuses =['applied', 'interview', 'offer', 'rejected']
+// if(!allowedStatuses.includes(newApplication.status)) {
+//     return res.status(400).json({ error: 'Invalid status' });
+// }   
+
+const validateApplication = (application) => {
+    if(!application.company || !application.company.trim()) {
+        return 'Company name is required' ;
+    }
+    if(!application.role || !application.role.trim()) {
+        return  'Role is required' ;
+    }
+    if(!application.dateApplied || !application.dateApplied.trim()) {
+        return  'Date applied is required' ;
+    }
+    if(isNaN(Date.parse(application.dateApplied))) {
+        return'Invalid date format' ;
+    }
+    if(!application.status || !application.status.trim()) {
+        return 'Status is required' ;
+    }
+
+    const allowedStatuses =['applied', 'interview', 'offer', 'rejected']
+    if(!allowedStatuses.includes(application.status)) {
+        return 'Invalid status' ;
+    }
+    return null
+};
 
 app.get('/', (req, res) => {
     res.send('Job application tracker API is running !');
@@ -66,22 +113,10 @@ app.post("/api/applications",  async (req, res) => {
         // createdAt: req.body.createdAt
     };
 
-//if no company name, do insert to backend
-if(!newApplication.company || !newApplication.company.trim()) {
-    return res.status(400).json({ error: 'Company name is required' });
-}
- if(!newApplication.role || !newApplication.role.trim()) {
-    return res.status(400).json({ error: 'Role is required' });
-}   
-
-if(!newApplication.dateApplied || !newApplication.dateApplied.trim()) {
-    return res.status(400).json({ error: 'Date applied is required' });
-}
-const allowedStatuses =['applied', 'interview', 'offer', 'rejected']
-if(!allowedStatuses.includes(newApplication.status)) {
-    return res.status(400).json({ error: 'Invalid status' });
-}   
-
+ const validationError = validateApplication(newApplication);
+    if(validationError) {
+        return res.status(400).json({ error: validationError });
+    }
 
  // 2. INSERT into PostgreSQL
    const result =  await pool.query(
@@ -163,6 +198,13 @@ app.put("/api/applications/:id", async (req, res) => {
     const {id} = req.params;
 
     const {company, jobPostingUrl, role, dateApplied, status, notes} = req.body;
+    const updateApplications = {company, jobPostingUrl, role, dateApplied, status, notes}
+   
+       const validateError = validateApplication(updateApplications)
+         if(validateError) {
+            return res.status(400).json({ error: validateError });
+         }  
+
     try{
     
         const result = await pool.query('UPDATE applications SET company=$1, job_posting_url=$2, role=$3, date_applied=$4, status=$5, notes=$6 WHERE id=$7 RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
