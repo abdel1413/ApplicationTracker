@@ -67,18 +67,19 @@ app.post("/api/applications",  async (req, res) => {
     };
 
 //if no company name, do insert to backend
-if(!newApplication.company) {
+if(!newApplication.company || !newApplication.company.trim()) {
     return res.status(400).json({ error: 'Company name is required' });
 }
- if(!newApplication.role) {
+ if(!newApplication.role || !newApplication.role.trim()) {
     return res.status(400).json({ error: 'Role is required' });
 }   
 
-if(!newApplication.dateApplied) {
+if(!newApplication.dateApplied || !newApplication.dateApplied.trim()) {
     return res.status(400).json({ error: 'Date applied is required' });
 }
-if(!newApplication.status) {
-    return res.status(400).json({ error: 'Status is required' });
+const allowedStatuses =['applied', 'interview', 'offer', 'rejected']
+if(!allowedStatuses.includes(newApplication.status)) {
+    return res.status(400).json({ error: 'Invalid status' });
 }   
 
 
