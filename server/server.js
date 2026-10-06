@@ -172,7 +172,11 @@ app.post("/api/applications",  async (req, res) => {
 
 app.delete("/api/applications/:id", async (req, res) => {
     const {id} = req.params; 
-    console.log(id)
+    let  applicationID = Number(id)
+     if(!Number.isInteger(applicationID)) {
+        return res.status(400).json({ error: 'Invalid application ID' });
+    }
+
     // res.json({message: "delete route reached",
     //     id: id
     // })
@@ -197,6 +201,12 @@ app.delete("/api/applications/:id", async (req, res) => {
 app.get("/api/applications/:id", async (req, res) => {
 
     const {id} = req.params; 
+
+    let applicationID = Number(id)
+     if(!Number.isInteger(applicationID)) {
+        return res.status(400).json({ error: 'Invalid application ID' });
+    }
+    
      try {
          const result = await pool.query('SELECT id, company, job_posting_url as "jobPostingUrl", role, date_applied as "dateApplied", notes,status, created_at as "createdAt" FROM applications WHERE id =$1',
          [id]);
@@ -216,6 +226,10 @@ app.get("/api/applications/:id", async (req, res) => {
 //2nd route - update application
 app.put("/api/applications/:id", async (req, res) => {
     const {id} = req.params;
+    let applicationId = Number(id)
+    if(!Number.isInteger(applicationId)) {
+        return res.status(400).json({ error: 'Invalid application ID' });
+    }
 
     const {company, jobPostingUrl, role, dateApplied, status, notes} = req.body;
     const updateApplications = {company, jobPostingUrl, role, dateApplied, status, notes}
