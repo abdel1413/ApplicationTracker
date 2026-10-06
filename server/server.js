@@ -49,19 +49,27 @@ app.use(express.json()); //When JSON data arrives in a request, parse it so I ca
 // }   
 
 const validateApplication = (application) => {
-    if(!application.company || !application.company.trim()) {
+    if(!application.company 
+        || typeof application.company !== 'string' 
+        || !application.company.trim()) {
         return 'Company name is required' ;
     }
-    if(!application.role || !application.role.trim()) {
+    if(!application.role 
+        || typeof application.role !== 'string' 
+        || !application.role.trim()) {
         return  'Role is required' ;
     }
-    if(!application.dateApplied || !application.dateApplied.trim()) {
+    if(!application.dateApplied ||
+         typeof application.dateApplied !== 'string' ||
+         !application.dateApplied.trim()) {
         return  'Date applied is required' ;
     }
     if(isNaN(Date.parse(application.dateApplied))) {
         return'Invalid date format' ;
     }
-    if(!application.status || !application.status.trim()) {
+    if(!application.status 
+        || typeof application.status !== 'string'
+        || !application.status.trim()) {
         return 'Status is required' ;
     }
 
