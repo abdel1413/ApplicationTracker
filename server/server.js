@@ -77,6 +77,14 @@ const validateApplication = (application) => {
     if(!allowedStatuses.includes(application.status)) {
         return 'Invalid status' ;
     }
+
+    if(application.jobPostingUrl){
+        try {
+             new URL(application.jobPostingUrl)
+        } catch (error) {
+            return 'Invalid job posting URL' ;
+        }
+    }
     return null
 };
 
