@@ -85,7 +85,11 @@ const validateApplication = (application) => {
             return 'Invalid job posting URL' ;
         }
     }
-    return null
+    if(application.notes !== undefined && application.notes !==null){
+      if(typeof application.notes !== 'string') {
+        return 'Notes must be a string' ;
+      }
+    }
 };
 
 app.get('/', (req, res) => {
