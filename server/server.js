@@ -3,10 +3,12 @@ const cors = require('cors')
 const pool = require("./db")
 const errorhandlerMiddleware = require("./middleware/errorHandler")
 const {validateApplication, validateId} = require("./utils/validation")
+const applicationsRoutes = require("./routes/applications")
 
 const app = express()   
 app.use(cors())
 app.use(express.json()); //When JSON data arrives in a request, parse it so I can access it through req.body
+app.use("/api/applications", applicationsRoutes);
 
 
 
@@ -69,16 +71,6 @@ app.get('/', (req, res) => {
 //     res.json(applications);
 // });
 
-app.get("/api/applications", async (req, res,next) => {
-    try {
-        const  result = await pool.query('SELECT id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt" FROM applications');
-        res.status(200).json(result.rows);
-        
-    } catch (error) {
-        // res.status(500).json({ error: 'Failed to fetch applications' });
-        next(error); // error sent to centralized error handler fnc
-    }
-});
 
 
 app.post("/api/applications",  async (req, res,next) => {
