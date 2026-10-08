@@ -123,19 +123,19 @@ app.get('/', (req, res) => {
 //     res.json(applications);
 // });
 
-app.get("/api/applications", async (req, res) => {
+app.get("/api/applications", async (req, res,next) => {
     try {
         const  result = await pool.query('SELECT id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt" FROM applications');
         res.status(200).json(result.rows);
         
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to fetch applications' });
+        // res.status(500).json({ error: 'Failed to fetch applications' });
+        next(error); // error sent to centralized error handler fnc
     }
 });
 
 
-app.post("/api/applications",  async (req, res) => {
+app.post("/api/applications",  async (req, res,next) => {
     try{
         // 1. Get data from req.body
   const newApplication = {
@@ -175,8 +175,9 @@ app.post("/api/applications",  async (req, res) => {
     res.status(201).json(result.rows[0]);
 
     }catch(error){
-        console.log(error)
-        res.status(500).json({ error: 'Failed to create application' })
+        // console.log(error)
+        // res.status(500).json({ error: 'Failed to create application' })
+        next(error);
     }
 
   
@@ -206,15 +207,16 @@ app.delete("/api/applications/:id", async (req, res) => {
 
         
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ error: 'Failed to delete application' });
+       //console.log(error)
+        // res.status(500).json({ error: 'Failed to delete application' });
+        next(error);
     }
     
  
 });
 
 //edit app first get the specific application
-app.get("/api/applications/:id", async (req, res) => {
+app.get("/api/applications/:id", async (req, res,next) => {
 
     const {id} = req.params; 
 
@@ -236,13 +238,13 @@ app.get("/api/applications/:id", async (req, res) => {
 
         
      } catch (error) {
-        console.log(error)
-        res.status(500).json({ error: 'Failed to fetch application' });
+        // res.status(500).json({ error: 'Failed to fetch application' });
+        next(error);
      }  
 })
 
 //2nd route - update application
-app.put("/api/applications/:id", async (req, res) => {
+app.put("/api/applications/:id", async (req, res,next) => {
     const {id} = req.params;
     const idError = validateId(id);
      if(idError === null) {
@@ -268,13 +270,19 @@ app.put("/api/applications/:id", async (req, res) => {
         res.status(200).json(result.rows[0]);
 
     }catch(error){
-     console.log(error)
-     res.status(500).json({ error: 'Failed to update application' });
+     // console.log(error)
+    //  res.status(500).json({ error: 'Failed to update application' });
+     next(error);
     }
 })
 
 
 
+const errorHandling = (err,req,res, next)=>{
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+}
+app.use(errorHandling)
 
 const PORT = 5001;
 app.listen(PORT, () => {
