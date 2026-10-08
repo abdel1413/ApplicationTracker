@@ -24,7 +24,7 @@ app.use(express.json()); //When JSON data arrives in a request, parse it so I ca
 // ]
 
 
-//if no company name, do insert to backend
+//if no company name, not do insert to backend
 // if(!newApplication.company || !newApplication.company.trim()) {
 //     return res.status(400).json({ error: 'Company name is required' });
 // }
@@ -94,10 +94,18 @@ const validateApplication = (application) => {
 
 const validateId = (id) => {
     const applicationId = Number(id);
-    if(!Number.isInteger(applicationId)) {
+    //1 way using || operator
+    if(!Number.isInteger(applicationId)|| applicationId <= 0) {
         return null;
     }
     return applicationId;
+
+    //2nd way using && operator
+    //   if (Number.isInteger(applicationId) && applicationId > 0) {
+    //     return applicationId;
+    // }
+    //return null.
+
 };  
 
 app.get('/', (req, res) => {
