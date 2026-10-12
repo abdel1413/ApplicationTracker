@@ -1,8 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const pool = require("./db")
 const errorhandlerMiddleware = require("./middleware/errorHandler")
-const {validateApplication, validateId} = require("./utils/validation")
 const applicationsRoutes = require("./routes/applications")
 
 const app = express()   
