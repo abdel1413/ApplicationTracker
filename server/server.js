@@ -5,7 +5,7 @@ const applicationsRoutes = require("./routes/applications")
 
 
 const allowedOrigin =[
-    'http://localhost:5001', process.env.FRONTEND_URL
+    'http://localhost:5173', process.env.FRONTEND_URL
 ]
 const app = express()   
 app.use(cors({ origin: (origin, callback) => {
@@ -15,6 +15,8 @@ app.use(cors({ origin: (origin, callback) => {
         callback(new Error('Not allowed by CORS'))
     }
 } }))
+
+
 app.use(express.json()); //When JSON data arrives in a request, parse it so I can access it through req.body
 app.use("/api/applications", applicationsRoutes);
 
