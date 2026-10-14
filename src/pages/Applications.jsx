@@ -15,32 +15,22 @@ export const Applications =()=>{
      const [applicationToDelete, setApplicationToDelete] =useState(null)
    
 
-   
-
      const loadApplications=  async ()=>{
-     
        const response = await api.get(`/api/applications`);
        setApplications(response.data);
      }
-
    
    useEffect(()=>{
     loadApplications()
    },[])
 
-
    const handleDelete =(id)=>{
-
-    const data = applications
       const deletedApp = data.find(item => item.id === id)
-
-    const filteredApp = data.filter(app => app.id !==id )
-
+      const filteredApp = data.filter(app => app.id !==id )
     if(!deletedApp) return;
    setApplications(filteredApp)
   const deleteTimer =  setTimeout(async () => {
     try {
-      
       await api.delete(`/api/applications/${id}`)
     } catch (error) {
       console.log(error)
@@ -50,22 +40,15 @@ export const Applications =()=>{
    }, 5000);
 
      toast(({closeToast})=>(
-      
          <div className="flex items-center justify-between gap-4" >
         <span className="">Application deleted successfully!</span>
     
         <button className="ml-4 px-2 py-1  text-blue-500 font-semibold rounded hover:underline transition"
         onClick={()=>{
            clearTimeout(deleteTimer)
-       
           setApplications(data)
-
-  
           closeToast()
-          // setTimeout(() => {
             toast.success("Application restored successfully!")
-          // }, 100);
-      
         }}
         >
           Undo
@@ -75,9 +58,7 @@ export const Applications =()=>{
         autoClose: 5000,
          closeOnClick: false,
          pauseOnHover: false,
-        // draggable: true,
-        // progress: undefined,
-        // theme: "light", 
+       
       });
      
    }
@@ -115,7 +96,7 @@ export const Applications =()=>{
     //export the content or values of application as csv 
     //so customer can download and read on excel google sheet or apple numbers
     const exportToCSV =()=>{
-      // const data = JSON.parse(localStorage.getItem('applications'))||[]
+    
       const data = applications;
       if(!data.length){
         toast('No application available to export ')
@@ -173,9 +154,7 @@ export const Applications =()=>{
   URL.revokeObjectURL(url)
   toast.success('Applications exported successful!')
   
-    }
-   
-    
+    } 
     return (
     <div className="pt-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
@@ -260,7 +239,7 @@ export const Applications =()=>{
 
                   <p className="flex items-center gap-2 mb-2 text-gray-600">
                     <FaCalendarAlt /> 
-                    {/* {dayjs(app.dateApplied).format("MMMM D, YYYY")} */}
+                   
                     {formatDate(app.dateApplied)}
                   </p>
                   <span
@@ -327,10 +306,6 @@ export const Applications =()=>{
                           <button type="button"
                           className="flex items-center sm:flex-none bg-red-400  text-white text-sm rounded px-4 py-3 hover:bg-red-600 transition"
                           onClick={()=>{
-                            // const confirmDelete = window.confirm(`Are you sure you want to delete ${app.company}?`)
-                            // if (confirmDelete) {
-                            //   handleDelete(app.id)
-                            // }
                             handleDelete(applicationToDelete.id)
                             setApplicationToDelete(null)
                           
