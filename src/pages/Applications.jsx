@@ -1,20 +1,11 @@
 
-//display all the applications 
-// use mvp 
-// use local storage to pull and the  existing application
-// loop thru them and display each application on the screen.
-
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import {FaCalendarAlt,FaBriefcase, FaExternalLinkAlt, FaEdit, FaEye, FaTrash, FaTimes} from "react-icons/fa"
-import dayjs from "dayjs"
  import {toast} from "react-toastify"
 import { formatDate } from "../utils/formatDate"
-import axios from 'axios'
+
 import api from "../api/axios"
-
-
-// const API_URL = import.meta.env.VITE_API_URL;
 
 export const Applications =()=>{    
     const [applications, setApplications] = useState([])
@@ -27,7 +18,7 @@ export const Applications =()=>{
    
 
      const loadApplications=  async ()=>{
-      //  const response = await axios.get(`${API_URL}/api/applications`);
+     
        const response = await api.get(`/api/applications`);
        setApplications(response.data);
      }
@@ -37,38 +28,17 @@ export const Applications =()=>{
     loadApplications()
    },[])
 
-   //to delete filter out all the items whose id is same as the param's id
-   // update the application using setApplication
-   // save updated into storage
+
    const handleDelete =(id)=>{
 
-    // 1 for permanent deletion, get data from storage
-    // const data =JSON.parse(localStorage.getItem("applications"))||[]
     const data = applications
-    // 2 create a variable to hold the  app to be deleted  from localstorage
       const deletedApp = data.find(item => item.id === id)
 
-   
-
-   // 3 update the state with filtered apps
-   //  setApplications(filtered)
-
-   // 4 save filtered  to storage 
-   //  localStorage.setItem('applications',JSON.stringify(filtered))
-
-
-      
-    //remove the app from the local storage
     const filteredApp = data.filter(app => app.id !==id )
 
     if(!deletedApp) return;
-
-   // remove the delete app immediately from ui 
    setApplications(filteredApp)
-
-   //wait to 5 sec to delete it permanently from storage
   const deleteTimer =  setTimeout(async () => {
-    //  localStorage.setItem('applications', JSON.stringify(filteredApp))
     try {
       
       await api.delete(`/api/applications/${id}`)
@@ -86,18 +56,11 @@ export const Applications =()=>{
     
         <button className="ml-4 px-2 py-1  text-blue-500 font-semibold rounded hover:underline transition"
         onClick={()=>{
-          //restore the deleted app to the applications list
-         // const restoredApplications = [...filtered, deletedApp]
-        
            clearTimeout(deleteTimer)
-          //restore the app deleted earlier from ui        
-          // setApplications((prev)=>[...prev, deletedApp])
+       
           setApplications(data)
 
-     
-         //restore the storage too in case the timer ran
-        //  localStorage.setItem("applications", JSON.stringify(data))
-
+  
           closeToast()
           // setTimeout(() => {
             toast.success("Application restored successfully!")
@@ -118,16 +81,6 @@ export const Applications =()=>{
       });
      
    }
-
-     // use select option to filter applications 
-  
-    //  const filtered = filter ==="all"
-    //  ? applications
-    //  : applications.filter(app => app.status.toLowerCase() === filter)
-
-   
-   
-
 
      const filtered = applications.filter(app =>{
       
