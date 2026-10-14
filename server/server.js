@@ -3,11 +3,20 @@ const cors = require('cors')
 const errorhandlerMiddleware = require("./middleware/errorHandler")
 const applicationsRoutes = require("./routes/applications")
 
+
+const allowedOrigin =[
+    'http://localhost:5001', process.env.FRONTEND_URL
+]
 const app = express()   
-app.use(cors())
+app.use(cors({ origin: (origin, callback) => {
+    if(!origin || allowedOrigin.includes(origin)) {
+        callback(null, true)
+    } else {
+        callback(new Error('Not allowed by CORS'))
+    }
+} }))
 app.use(express.json()); //When JSON data arrives in a request, parse it so I can access it through req.body
 app.use("/api/applications", applicationsRoutes);
-
 
 
 // const applications = [
