@@ -1,10 +1,7 @@
-
-
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import api from "../api/axios"
-
 
 
 export const  EditApplication =()=>{
@@ -45,8 +42,6 @@ export const  EditApplication =()=>{
         }))
     }
 
-
-
       const handleSubmit = async (e)=>{
         e.preventDefault();
         try {
@@ -58,7 +53,6 @@ export const  EditApplication =()=>{
          },3000)
         }catch{
             toast.error("Failed to update application!")
-
         }
        
     }
@@ -69,6 +63,7 @@ export const  EditApplication =()=>{
         <form 
         className="space-y-4"
         onSubmit={handleSubmit}>
+
           <input
           name="company"
           value={formData.company}
@@ -78,10 +73,10 @@ export const  EditApplication =()=>{
             <input type="url"
             name="jobPostingUrl"
             value={formData.jobPostingUrl || ""}
-
             onChange={handleChange}
             placeholder="paste your new url"
             className="w-full border p-2"/>
+          
           <input
           name="role"
           onChange={handleChange}
