@@ -25,8 +25,9 @@ export const Applications =()=>{
    },[])
 
    const handleDelete =(id)=>{
-      const deletedApp = data.find(item => item.id === id)
-      const filteredApp = data.filter(app => app.id !==id )
+  
+      const deletedApp = applications.find(item => item.id === id)
+      const filteredApp = applications.filter(app => app.id !==id )
     if(!deletedApp) return;
    setApplications(filteredApp)
   const deleteTimer =  setTimeout(async () => {
@@ -46,7 +47,7 @@ export const Applications =()=>{
         <button className="ml-4 px-2 py-1  text-blue-500 font-semibold rounded hover:underline transition"
         onClick={()=>{
            clearTimeout(deleteTimer)
-          setApplications(data)
+          setApplications(applications)
           closeToast()
             toast.success("Application restored successfully!")
         }}
@@ -208,7 +209,7 @@ export const Applications =()=>{
           <div className="space-y-5 ">
             {!filtered.length &&(
               <div className="text-center py-10 bg-gray-50 border rounded">
-                 <h2 className="text-2xl font-semibold text-red-400">No applications notfound</h2>
+                 <h2 className="text-2xl font-semibold text-red-400">No applications found</h2>
                  <p className="text-gray-500  ">
                   try changing your search or filter
                 </p>
@@ -285,7 +286,7 @@ export const Applications =()=>{
        </div>
         {applicationToDelete &&(
               <div className="fixed inset-0 z-50 flex px-4 items-center justify-center bg-black/50">
-                  <div className="w-full max-x-sm rounded-xl bg-white shadow-xl p-2  ">
+                  <div className="w-full max-w-sm rounded-xl bg-white shadow-xl p-2  ">
                         <h2 className="text-xl font-bold text-gray-800">Delete application?</h2>
                         <p className="mt-2 text-gray-600">
                           Are you sure you want to delete  
@@ -296,7 +297,7 @@ export const Applications =()=>{
                         <div className=" flex mt-6 gap-2 justify-end" >
                           <button
                           type="button"
-                          className="  flex items-center border border border-gray-500 rounded px-4 py-3 hover:bg-gray-100 transition"
+                          className="  flex items-center border border-gray-500 rounded px-4 py-3 hover:bg-gray-100 transition"
                           onClick={()=>setApplicationToDelete(null)}
                           > 
                           <FaTimes className="mr-1 text-xl "/>
