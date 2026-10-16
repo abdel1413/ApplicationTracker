@@ -2,7 +2,6 @@
 
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import { Home } from './components/Home'
 import './index.css'
 import { Dashboard } from './pages/Dashboard'
 import { EditApplication } from './pages/EditApplication'
