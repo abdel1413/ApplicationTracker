@@ -49,7 +49,7 @@ export const Dashboard =()=>{
         Track your applications, interviews, and offers at a glance.
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 flex-wrap justify-center">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
 
         <div className="p-2 sm:p-3  border  shadow-md rounded-xl text-center bg-white  border-t-4 border-blue-500  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer mb-2">
 
@@ -90,7 +90,7 @@ export const Dashboard =()=>{
           <h2 className="text-gray-500 text-base sm:text-lg md:text-xl">
             Offer</h2>
        </div>
-          <p className="text-2xl sm:text-3xl md:text-4xl font-bold mt-0">{statistics.offered}</p>
+          <p className="text-2xl sm:text-3xl md:text-4xl font-bold mt-0">{statistics.offer}</p>
         </div>
 
         <div className="p-2 sm:p-3 border text-center bg-white rounded-xl border-t-4 border-red-500 shadow-md transition-all duration-300   hover:-translate-y-1 hover:shadow-lg cursor-pointer col-span-2 md:col-span-1">
@@ -116,12 +116,12 @@ export const Dashboard =()=>{
           </Link>
            
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2  gap-4 min-h-[180px] p-4 transition-all duration-300 cursor-pointer bg-white rounded-lg shadow-md hover:-translate-y-1 hover:shadow-lg hover:border-blue-400">
+        <div className="grid grid-cols-1 md:grid-cols-2  gap-4 min-h-[180px] p-4 transition-all duration-300 bg-white rounded-lg shadow-md ">
           {recentApplications.map(app => (
               <Link to={`/applications/${app.id}`} 
-              className="block border border-gray-300 rounded-lg p-4 mb-4 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 text-gray-700 no-underline" key={app.id}>
+              className="block border border-gray-300 rounded-lg p-4 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 text-gray-700 no-underline" key={app.id}>
            
-              <div className="flex flex-col mb-3 gap-2 ">
+              <div  className="flex flex-col mb-3 gap-2">
                   <h3 className="text-lg md:text-xl font-bold mr-2 line-clamp-1 mb-2 text-gray-800">{app.company} 
                   <FaChevronRight className="inline-block ml-0 text-blue-500 cursor-pointer hover:translate-x-1 transition-transform duration-200"/>
                   </h3>

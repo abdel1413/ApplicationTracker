@@ -4,12 +4,13 @@ import {
   FaCalendar,
   FaExchangeAlt,
 } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
 import api from "../api/axios";
 
 export const ViewApplication = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [application, setApplication] = useState(undefined);
 
@@ -43,11 +44,11 @@ export const ViewApplication = () => {
         </h1>
 
         <Link
-          to="/applications"
-          className="text-blue-500 font-medium hover:underline"
-        >
-           ←  Back to Applications
-        </Link>
+            to="/applications"
+            className="w-full sm:w-auto text-center border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+          >
+            Back
+          </Link>
       </div>
     );
   }
@@ -138,13 +139,14 @@ export const ViewApplication = () => {
         </div>
 
        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-5 sm:mt-8">
-          <Link
-            to="/applications"
-            className="w-full sm:w-auto text-center border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-          >
-            Back
-          </Link>
-
+          
+<button
+        type="button"
+          onClick={()=>navigate(-1)}
+         className="w-full sm:w-auto text-center border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+           ←  Back
+        </button>
           <Link
             to={`/edit/${application.id}`}
             className="w-full sm:w-auto bg-blue-500 text-center px-4 py-2 text-white rounded hover:bg-blue-600 transition"
