@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import {
   FaBriefcase,
@@ -7,17 +6,11 @@ import {
 } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
-import axios from "axios";
 import api from "../api/axios";
-
-
-// const API_URL = import.meta.env.VITE_API_URL;
 
 export const ViewApplication = () => {
   const { id } = useParams();
 
-  // undefined = still loading
-  // null = application not found
   const [application, setApplication] = useState(undefined);
 
   useEffect(() => {
@@ -27,28 +20,11 @@ export const ViewApplication = () => {
         setApplication(result.data)
         
       } catch (error) {
-        console.log(error)
-        setApplication(null)
-
+        console.error('Error fetching application:', error);
+        setApplication(null);
       }
-    }
-    // try {
-    //   const data =
-    //     JSON.parse(localStorage.getItem("applications")) || [];
-    //     //use axios here to get app by id.
-
-    //  //no need to find specific item by id
-    //   const selectedApplication = data.find(
-    //     app => String(app.id) === String(id)
-    //   );
-      
-    //   //pass result to setApp()
-    //   setApplication(selectedApplication || null);
-    // } catch (error) {
-    //   console.error("Unable to load application:", error);
-    //   setApplication(null);
-    // }
-    loadApp()
+    };
+    loadApp();
   }, [id]);
 
   if (application === undefined) {
@@ -80,9 +56,9 @@ export const ViewApplication = () => {
     application.status.charAt(0).toUpperCase() +
     application.status.slice(1);
 
-  const companyName =
-    application.company.charAt(0).toUpperCase() +
-    application.company.slice(1);
+  // const companyName =
+  //   application.company.charAt(0).toUpperCase() +
+  //   application.company.slice(1);
 
   const statusStyles = {
     applied: "bg-blue-100 text-blue-700",
@@ -93,7 +69,7 @@ export const ViewApplication = () => {
 
   return (
     <div className="pt-20 pb-2 px-3 sm:pt-24 sm:px-6 lg:px-8">
-      <h1 className="text-center font-bold mb-3 text-xl sm:text-lg">
+      <h1 className="text-center font-bold mb-3 text-lg sm:text-xl">
         Application Details
       </h1>
 
@@ -101,7 +77,7 @@ export const ViewApplication = () => {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-              {companyName}
+              {application.company}
             </h2>
 
             <p className="flex gap-2 items-center text-gray-600 mt-2">
@@ -128,9 +104,6 @@ export const ViewApplication = () => {
 
             <p className="flex items-center gap-2 mt-1 text-gray-600">
               <FaCalendar />
-              {/* {dayjs(application.dateApplied).format(
-                "MMMM D, YYYY"
-              )} */}
               {formatDate(application.dateApplied)}
             </p>
           </div>
@@ -185,10 +158,3 @@ export const ViewApplication = () => {
   );
 };
 
-/**
- * OLD                              NEW
-localStorage                     PostgreSQL
-JSON.parse(...)                  axios.get(...)
-data.find(...)                   GET /api/applications/:id
-setApplication(found)            setApplication(result.data)
- */
