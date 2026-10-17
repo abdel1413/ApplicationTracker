@@ -13,6 +13,7 @@ import { formatDate } from "../utils/formatDate";
 import { calculateStatistics } from "../utils/calculateStatistics";
 import { toast } from "react-toastify";
 import api from "../api/axios";
+
 export const Dashboard =()=>{
    
     const [applications, setApplications] = useState([])
@@ -117,6 +118,9 @@ export const Dashboard =()=>{
            
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2  gap-4 min-h-[180px] p-4 transition-all duration-300 bg-white rounded-lg shadow-md ">
+          {recentApplications.length === 0 && (
+            <p className="text-gray-500 text-lg text-center col-span-full py-8">No recent applications.</p>
+          )}
           {recentApplications.map(app => (
               <Link to={`/applications/${app.id}`} 
               className="block border border-gray-300 rounded-lg p-4 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-500 text-gray-700 no-underline" key={app.id}>
