@@ -1,12 +1,10 @@
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify"
-// import { generateId } from "../../utils/generateId"
-
 
 export const ApplicationForm = ({onSubmit})=>{
     const [formData, setFormData] = useState(initialState)
-    // const [toastMessage, setToastMessage] = useState(false) 
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate()
    
     const handleSubmit = async (e)=>{ 
@@ -15,21 +13,19 @@ export const ApplicationForm = ({onSubmit})=>{
             || !formData.role.trim()
             || !formData.status 
             || !formData.dateApplied) {
-            // alert("please, fill up  all the fields")
              toast.error("Please fill in all required fields.");
         return 
     }
 
-    //create a new application 
+  
     const newApplication = {
-        // id: generateId(),
         ...formData,
         company:formData.company.trim(),
         role: formData.role.trim(),
         notes: formData.notes.trim(),
-    //    createdAt: new Date().toISOString()
     }
 
+    setIsSubmitting(true);
    try {
     await onSubmit(newApplication)
       toast.success("Application saved successfully!")
@@ -38,56 +34,40 @@ export const ApplicationForm = ({onSubmit})=>{
         navigate('/Applications')
          },1500)
    } catch (error) {
-    console.log(error)
+    console.error('Error saving application:', error)
     toast.error("Failed to save application.")
+   } finally {
+    setIsSubmitting(false);
    }
-  
-   
-
-//       setToastMessage(true)
-//       setTimeout(()=>{
-//          setToastMessage(false)
-
-//       },5000)
-//    setToastMessage(true)
-//       setTimeout(()=>{
-//          navigate('/Applications')
-//       }  ,8000)
-
-     
-   
 
     }
 
-    const handleChange = async (e)=>{
+    const handleChange =  (e)=>{
         const {name, value} = e.target; 
         setFormData((prev) =>( {...prev, [name]: value }))
     }
 
-    return (<>
-    {/* {toastMessage && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
-             ✅ Application saved successfully!
-        </div>
-    )  } */}
-    <form className="max-w-xl mx-auto bg-white shadow shadow-lg   p-6 space-y-5 mt-20 bg-gray-100  "
+    return (
+    <form className="max-w-xl mx-auto bg-white shadow-lg p-6 space-y-5 mt-20 "
     onSubmit={ handleSubmit}>
         <div className="space-y-2">
             <h2 className="text-xl font-bold text-center mb-4">
                 Add Application
             </h2>
-            <label className="block">Company: </label>
+            <label htmlFor="company" className="block">Company: </label>
             <input
              type="text" 
             placeholder="company name "
+            id='company'
             name="company"
             value={formData.company}
             onChange={handleChange} 
             className="w-full  px-4 py-3 h-10 border rounded placeholder-gray-400  "
             />
-            <label className="block ">Job URL: </label> <input
+            <label htmlFor="jobPostingUrl" className="block ">Job URL: </label> <input
              type="url" 
             placeholder="https://careers.company.com/..."
+            id="jobPostingUrl"
             name="jobPostingUrl"
             value={formData.jobPostingUrl}
             onChange={handleChange} 
@@ -95,10 +75,12 @@ export const ApplicationForm = ({onSubmit})=>{
             />
         </div>
         <div className="mt-0">
-            <label  className="block ">Role: </label>
+            <label  htmlFor="role" className="block ">Role: </label>
 
-            <input type="text"
+            <input 
+            type="text"
             name="role"
+            id="role"
             value={formData.role}
             onChange={handleChange} 
             placeholder="What role ? "
@@ -106,9 +88,10 @@ export const ApplicationForm = ({onSubmit})=>{
             />
         </div>
         <div  className="mt-0">
-            <label  className="block ">Date applied</label>
+            <label  htmlFor="dateApplied" className="block ">Date applied</label>
             <input type="date"
             name="dateApplied"
+            id="dateApplied"
             value={formData.dateApplied}
             onChange={handleChange}
             placeholder="date applied" 
@@ -126,11 +109,11 @@ export const ApplicationForm = ({onSubmit})=>{
             className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"/>
          </div>
          <div>
-            <label className="block ">Status:</label>
+            <label htmlFor="status" className="block ">Status:</label>
             <select
              name="status" 
-            id="" 
-            value={formData.status.toLowerCase()}
+            id="status" 
+            value={formData.status}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded"
             >
@@ -143,13 +126,14 @@ export const ApplicationForm = ({onSubmit})=>{
         <div>
             <button
              type="submit"
-             className=" w-full bg-black text-white py-3 rounded"
+             disabled={isSubmitting}
+             className=" w-full bg-black text-white py-3 rounded disabled:opacity-50 disabled:cursor-not-allowed"
              >
-               Save application
+             {isSubmitting ? "Saving..." : "Save application"}
             </button>
         </div>
     </form>
-    </>)
+    )
 }
 
 
