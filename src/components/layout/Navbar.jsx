@@ -1,15 +1,17 @@
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
  import{HiMenu, HiX} from "react-icons/hi"
  import { useState } from "react"
 export const Navbar =()=>{
   const [menuOpen, setMenuOpen] = useState(false)
 
     return(
-    <nav className=" fixed top-0 left-0 w-full border-b h-16 text-lg  bg-white  px-8 shadow-sm z-50 ">
+    <nav className=" fixed top-0 left-0 w-full border-b h-16 text-lg  bg-white shadow-sm z-50 ">
        <div className="max-w-6xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          <Link to="/">
             <h1 className=" text-lg sm:text-xl font-bold text-blue-600">
             JobTracker
             </h1>
+          </Link>
            <div  className="hidden sm:flex gap-8 font-medium ">
                 <NavLink to="/"  end
                 className={activeNavLink}>
@@ -30,7 +32,7 @@ export const Navbar =()=>{
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
             className="sm:hidden "
-            onClick={()=> setMenuOpen(!menuOpen)}>
+            onClick={()=> setMenuOpen(prev => !prev)}>
                 {menuOpen ? <HiX size={28}/> : <HiMenu size={28}/>}
             </button>
 
