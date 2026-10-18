@@ -1,9 +1,9 @@
-export const calculateStatistics =(applications)=>{
+export const calculateStatistics = (applications) => {
     
-    return applications.reduce((statistics, application)=>{
+    return applications.reduce((statistics, application) =>{
         statistics.total +=1;
-        const status = application.status?.toLowerCase()
-        if(status && status in statistics){
+        const status = application.status?.toLowerCase();
+        if(Object.hasOwn(statistics, status)){
             statistics[status] +=1
         }
       
