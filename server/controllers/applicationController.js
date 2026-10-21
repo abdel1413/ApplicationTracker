@@ -34,7 +34,6 @@ const getApplications = async (req,res, next) => {
 
         
      } catch (error) {
-        // res.status(500).json({ error: 'Failed to fetch application' });
         next(error);
      }  
 }
@@ -42,16 +41,14 @@ const getApplications = async (req,res, next) => {
 
 const createApplications =  async (req, res,next) => {
     try{
-        // 1. Get data from req.body
+    
   const newApplication = {
-        // id: req.body.id,
         company: req.body.company,
         jobPostingUrl: req.body.jobPostingUrl,
         role: req.body.role,
         dateApplied: req.body.dateApplied,
         status: req.body.status,
         notes: req.body.notes,
-        // createdAt: req.body.createdAt
     };
 
  const validationError = validateApplication(newApplication);
@@ -59,7 +56,6 @@ const createApplications =  async (req, res,next) => {
         return res.status(400).json({ error: validationError });
     }
 
- // 2. INSERT into PostgreSQL
    const result =  await pool.query(
     'INSERT INTO applications(company, job_posting_url, role, date_applied, status, notes) VALUES($1, $2, $3, $4, $5, $6) RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
     [
@@ -73,21 +69,11 @@ const createApplications =  async (req, res,next) => {
      
 
    )
-     // 3. Send successful response
-
-    // applications.push(newApplication);
-    // res.status(201).json(newApplication);
     res.status(201).json(result.rows[0]);
 
     }catch(error){
-        // console.log(error)
-        // res.status(500).json({ error: 'Failed to create application' })
         next(error);
     }
-
-  
-
-
    
 }
 
@@ -105,9 +91,7 @@ const updateApplication =  async (req, res,next) => {
          if(validateError) {
             return res.status(400).json({ error: validateError });
          }  
-
     try{
-    
         const result = await pool.query('UPDATE applications SET company=$1, job_posting_url=$2, role=$3, date_applied=$4, status=$5, notes=$6 WHERE id=$7 RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
             [company, jobPostingUrl, role, dateApplied, status, notes, id]
         )
@@ -117,8 +101,6 @@ const updateApplication =  async (req, res,next) => {
         res.status(200).json(result.rows[0]);
 
     }catch(error){
-     // console.log(error)
-    //  res.status(500).json({ error: 'Failed to update application' });
      next(error);
     }
 }
@@ -130,9 +112,6 @@ const deleteApplication = async (req, res,next) => {
         return res.status(400).json({ error:"Invalid application ID" });
      }
 
-    // res.json({message: "delete route reached",
-    //     id: id
-    // })
     try {
          const result = await pool.query('DELETE FROM applications WHERE id=$1 RETURNING id ,company, job_posting_url AS "jobPostingUrl", role, date_applied as "dateApplied", status, notes,created_at as "createdAt"', [id])
  
@@ -143,8 +122,6 @@ const deleteApplication = async (req, res,next) => {
 
         
     } catch (error) {
-       //console.log(error)
-        // res.status(500).json({ error: 'Failed to delete application' });
         next(error);
     }
     

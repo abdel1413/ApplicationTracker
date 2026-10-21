@@ -2,7 +2,6 @@ const express = require('express')
 const { getApplications, getApplicationById, createApplications, updateApplication, deleteApplication } = require('../controllers/applicationController')
 const router = express.Router()
 
-
 router.get("/", getApplications);
 
 
