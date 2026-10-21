@@ -1,6 +1,3 @@
-
-
-
 const pool = require("../db");
 const { validateId ,validateApplication} = require("../utils/validation");
 
@@ -13,19 +10,17 @@ const getApplications = async (req,res, next) => {
     }
 }
 
-
-
   const getApplicationById =  async (req, res,next) => {
 
     const {id} = req.params; 
 
-    const idError = validateId(id);
-     if(idError === null) {
+    const applicationID = validateId(id);
+     if(applicationID === null) {
         return res.status(400).json({ error:"Invalid application ID" });
      }
      try {
          const result = await pool.query('SELECT id, company, job_posting_url as "jobPostingUrl", role, date_applied as "dateApplied", notes,status, created_at as "createdAt" FROM applications WHERE id =$1',
-         [id]);
+         [applicationID]);
 
     if (result.rows.length === 0) {
         return res.status(404).json({ error: 'Application not found' });
@@ -37,7 +32,6 @@ const getApplications = async (req,res, next) => {
         next(error);
      }  
 }
-
 
 const createApplications =  async (req, res,next) => {
     try{
@@ -79,8 +73,8 @@ const createApplications =  async (req, res,next) => {
 
 const updateApplication =  async (req, res,next) => {
     const {id} = req.params;
-    const idError = validateId(id);
-     if(idError === null) {
+    const applicationID = validateId(id);
+     if(applicationID === null) {
         return res.status(400).json({ error:"Invalid application ID" });
      }
 
@@ -93,7 +87,7 @@ const updateApplication =  async (req, res,next) => {
          }  
     try{
         const result = await pool.query('UPDATE applications SET company=$1, job_posting_url=$2, role=$3, date_applied=$4, status=$5, notes=$6 WHERE id=$7 RETURNING id, company, job_posting_url AS "jobPostingUrl", role, date_applied AS "dateApplied", status, notes, created_at AS "createdAt"',
-            [company, jobPostingUrl, role, dateApplied, status, notes, id]
+            [company, jobPostingUrl, role, dateApplied, status, notes, applicationID]
         )
         if(result.rows.length === 0) {
             return res.status(404).json({ error: 'Application not found' });
@@ -107,19 +101,18 @@ const updateApplication =  async (req, res,next) => {
 
 const deleteApplication = async (req, res,next) => {
     const {id} = req.params; 
-     const idError = validateId(id);
-     if(idError === null) {
+     const applicationID = validateId(id);
+     if(applicationID === null) {
         return res.status(400).json({ error:"Invalid application ID" });
      }
 
     try {
-         const result = await pool.query('DELETE FROM applications WHERE id=$1 RETURNING id ,company, job_posting_url AS "jobPostingUrl", role, date_applied as "dateApplied", status, notes,created_at as "createdAt"', [id])
+         const result = await pool.query('DELETE FROM applications WHERE id=$1 RETURNING id ,company, job_posting_url AS "jobPostingUrl", role, date_applied as "dateApplied", status, notes,created_at as "createdAt"', [applicationID])
  
   if(result.rows.length === 0) {
         return res.status(404).json({ error: 'Application not found' });
     }
     res.status(200).json({ message: 'Application deleted successfully', application: result.rows[0] });
-
         
     } catch (error) {
         next(error);
