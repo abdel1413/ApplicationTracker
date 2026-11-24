@@ -1,5 +1,5 @@
 const express = require('express')
-const { getApplications, getApplicationById, createApplications, updateApplication, deleteApplication } = require('../controllers/applicationController')
+const { getApplications, getApplicationById, createApplication, updateApplication, deleteApplication } = require('../controllers/applicationController')
 const router = express.Router()
 
 router.get("/", getApplications);
@@ -7,7 +7,7 @@ router.get("/", getApplications);
 
 router.get("/:id",getApplicationById)
 
-router.post("/", createApplications);
+router.post("/", createApplication);
 
 router.put("/:id", updateApplication);
 
